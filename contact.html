@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact - GreenPass Smart Tourism</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fas fa-mountain"></i>
+        <div>
+          <span class="logo-title">GreenPass</span>
+          <span class="logo-sub">Tourist Management</span>
+        </div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="destinations.html">Destinations</a></li>
+        <li><a href="booking.html">Book Now</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+      <div class="nav-buttons">
+        <a href="login.html" class="btn-outline">Login</a>
+        <a href="signup.html" class="btn-primary">Sign Up</a>
+      </div>
+      <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+    </div>
+  </nav>
+
+  <section class="page-header">
+    <h1>Contact Us</h1>
+    <p>We're here to help with your travel needs</p>
+  </section>
+
+  <section class="contact-section">
+    <div class="contact-container">
+
+      <!-- Contact Info -->
+      <div class="contact-info">
+        <h2>Get In Touch</h2>
+        <p>Have questions about your trip or our platform? Reach out to us anytime.</p>
+
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-university"></i></div>
+          <div>
+            <h4>Institution</h4>
+            <p>V.S.B. Engineering College, Karur - 639 111</p>
+            <p>An Autonomous Institution, Affiliated to Anna University</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div>
+            <h4>Email</h4>
+            <p>greenpass@vsb.edu.in</p>
+            <p>support@greenpass.in</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-phone"></i></div>
+          <div>
+            <h4>Phone</h4>
+            <p>+91 98765 43210</p>
+            <p>Available 24/7 via AI Support</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <h4>Address</h4>
+            <p>Karur - 639 111, Tamil Nadu, India</p>
+          </div>
+        </div>
+
+        <div class="social-links">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form-box">
+        <h2>Send a Message</h2>
+        <form id="contactForm" onsubmit="submitContact(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" placeholder="Full name" required/>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="Your email" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <select>
+              <option>General Inquiry</option>
+              <option>Booking Support</option>
+              <option>Technical Issue</option>
+              <option>Feedback</option>
+              <option>Partnership</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea rows="5" placeholder="Write your message here..." required></textarea>
+          </div>
+          <button type="submit" class="btn-primary btn-full">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+        <div id="contactSuccess" class="success-msg" style="display:none;">
+          <i class="fas fa-check-circle"></i>
+          <h3>Message Sent!</h3>
+          <p>Thank you for reaching out. We'll get back to you within 24 hours.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="section-header">
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>How does the AI recommendation system work?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-a">Our AI analyzes your travel preferences, history, and real-time contextual data to suggest personalized destinations, accommodations, and activities with 95% accuracy.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Is my payment information secure?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-a">Yes. All transactions are encrypted using enterprise-grade security protocols. We use JWT authentication and secure payment gateways to protect your data.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What is the IoT environmental monitoring?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-a">IoT sensors at destinations track crowd density, air quality, temperature, and resource usage in real-time to promote sustainable tourism and prevent overcrowding.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Can I cancel or modify my booking?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-a">Yes, bookings can be modified or cancelled through your dashboard. Cancellation policies vary by destination and accommodation type.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="logo">
+          <i class="fas fa-mountain"></i>
+          <div>
+            <span class="logo-title">GreenPass</span>
+            <span class="logo-sub">Tourist Management</span>
+          </div>
+        </div>
+        <p>A Smart Integrated Ecosystem for Post-Pandemic Tourism Recovery.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="destinations.html">Destinations</a></li>
+          <li><a href="booking.html">Book Now</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Project Team</h4>
+        <ul>
+          <li>Dhayanithi G</li>
+          <li>Dhivakar T</li>
+          <li>Karthikeyan S</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 GreenPass Tourist Management System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

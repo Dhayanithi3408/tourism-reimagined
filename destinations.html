@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Destinations - GreenPass Smart Tourism</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fas fa-mountain"></i>
+        <div>
+          <span class="logo-title">GreenPass</span>
+          <span class="logo-sub">Tourist Management</span>
+        </div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="destinations.html" class="active">Destinations</a></li>
+        <li><a href="booking.html">Book Now</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-buttons">
+        <a href="login.html" class="btn-outline">Login</a>
+        <a href="signup.html" class="btn-primary">Sign Up</a>
+      </div>
+      <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+    </div>
+  </nav>
+
+  <section class="page-header">
+    <h1>Explore Destinations</h1>
+    <p>Discover breathtaking locations across Jammu & Himachal Pradesh</p>
+  </section>
+
+  <!-- Filter Bar -->
+  <section class="filter-section">
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterDest('all')">All</button>
+      <button class="filter-btn" onclick="filterDest('jammu')">Jammu</button>
+      <button class="filter-btn" onclick="filterDest('himachal')">Himachal Pradesh</button>
+      <button class="filter-btn" onclick="filterDest('adventure')">Adventure</button>
+      <button class="filter-btn" onclick="filterDest('nature')">Nature</button>
+    </div>
+  </section>
+
+  <!-- Destinations Grid -->
+  <section class="destinations-section">
+    <div class="destinations-grid" id="destGrid">
+
+      <div class="dest-card" data-cat="jammu nature">
+        <div class="dest-img jammu1">
+          <span class="dest-badge">Jammu</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Vaishno Devi</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Reasi, Jammu</p>
+          <div class="dest-meta">
+            <span><i class="fas fa-users"></i> Capacity: 80%</span>
+            <span><i class="fas fa-star"></i> 4.9</span>
+          </div>
+          <p class="dest-desc">One of the most sacred pilgrimage sites, nestled in the Trikuta Mountains with stunning natural beauty.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="himachal adventure">
+        <div class="dest-img himachal1">
+          <span class="dest-badge">Himachal</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Manali</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Kullu, Himachal Pradesh</p>
+          <div class="dest-meta">
+            <span><i class="fas fa-users"></i> Capacity: 65%</span>
+            <span><i class="fas fa-star"></i> 4.8</span>
+          </div>
+          <p class="dest-desc">A high-altitude Himalayan resort town known for adventure sports, snow-capped peaks, and scenic valleys.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="himachal nature">
+        <div class="dest-img himachal2">
+          <span class="dest-badge">Himachal</span>
+          <span class="eco-badge eco-warn"><i class="fas fa-exclamation-triangle"></i> Moderate</span>
+        </div>
+        <div class="dest-info">
+          <h3>Shimla</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Shimla, Himachal Pradesh</p>
+          <div class="dest-meta">
+            <span><i class="fas fa-users"></i> Capacity: 90%</span>
+            <span><i class="fas fa-star"></i> 4.7</span>
+          </div>
+          <p class="dest-desc">The Queen of Hills — a charming colonial hill station with lush forests, heritage architecture, and cool climate.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="jammu adventure">
+        <div class="dest-img jammu2">
+          <span class="dest-badge">Jammu</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Patnitop</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Udhampur, Jammu</p>
+          <div class="dest-meta">
+            <span><i class="fas fa-users"></i> Capacity: 55%</span>
+            <span><i class="fas fa-star"></i> 4.6</span>
+          </div>
+          <p class="dest-desc">A beautiful plateau in the Shivalik range offering panoramic views, skiing, and trekking opportunities.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="himachal adventure nature">
+        <div class="dest-img himachal3">
+          <span class="dest-badge">Himachal</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Spiti Valley</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Lahaul-Spiti, Himachal Pradesh</p>
+          <div class="dest-meta">
+            <span><i class="fas fa-users"></i> Capacity: 40%</span>
+            <span><i class="fas fa-star"></i> 4.9</span>
+          </div>
+          <p class="dest-desc">A cold desert mountain valley with ancient monasteries, dramatic landscapes, and pristine wilderness.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="jammu nature">
+        <div class="dest-img jammu3">
+          <span class="dest-badge">Jammu</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Dal Lake, Srinagar</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Srinagar, J&K</p>
+          <div class="dest-meta">
+            <span><i class="fas fa-users"></i> Capacity: 70%</span>
+            <span><i class="fas fa-star"></i> 4.8</span>
+          </div>
+          <p class="dest-desc">The iconic jewel of Kashmir — a serene lake with houseboats, Mughal gardens, and breathtaking mountain views.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- IoT Monitor Banner -->
+  <section class="iot-banner">
+    <div class="iot-content">
+      <i class="fas fa-satellite-dish"></i>
+      <div>
+        <h3>Real-Time IoT Monitoring Active</h3>
+        <p>Crowd levels, environmental conditions, and resource usage are tracked live to ensure sustainable tourism.</p>
+      </div>
+      <div class="iot-stats">
+        <span><i class="fas fa-thermometer-half"></i> Temp: 18°C</span>
+        <span><i class="fas fa-wind"></i> Air: Good</span>
+        <span><i class="fas fa-users"></i> Crowd: Moderate</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-bottom">
+      <p>© 2026 GreenPass Tourist Management System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

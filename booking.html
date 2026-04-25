@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Now - GreenPass Smart Tourism</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fas fa-mountain"></i>
+        <div>
+          <span class="logo-title">GreenPass</span>
+          <span class="logo-sub">Tourist Management</span>
+        </div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="destinations.html">Destinations</a></li>
+        <li><a href="booking.html" class="active">Book Now</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-buttons">
+        <a href="login.html" class="btn-outline">Login</a>
+        <a href="signup.html" class="btn-primary">Sign Up</a>
+      </div>
+      <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+    </div>
+  </nav>
+
+  <section class="page-header">
+    <h1>Book Your Trip</h1>
+    <p>Seamless, secure, and sustainable booking experience</p>
+  </section>
+
+  <section class="booking-section">
+    <div class="booking-container">
+
+      <!-- Booking Form -->
+      <div class="booking-form-box">
+        <h2><i class="fas fa-calendar-check"></i> Trip Booking</h2>
+        <form id="bookingForm" onsubmit="submitBooking(event)">
+
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="Enter your full name" required/>
+          </div>
+
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="Enter your email" required/>
+          </div>
+
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="Enter your phone number" required/>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Destination</label>
+              <select required>
+                <option value="">Select Destination</option>
+                <option>Vaishno Devi, Jammu</option>
+                <option>Manali, Himachal Pradesh</option>
+                <option>Shimla, Himachal Pradesh</option>
+                <option>Patnitop, Jammu</option>
+                <option>Spiti Valley, Himachal Pradesh</option>
+                <option>Dal Lake, Srinagar</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Number of Travelers</label>
+              <input type="number" min="1" max="20" placeholder="e.g. 2" required/>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Check-In Date</label>
+              <input type="date" required/>
+            </div>
+            <div class="form-group">
+              <label>Check-Out Date</label>
+              <input type="date" required/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Accommodation Type</label>
+            <select>
+              <option>Budget Hotel</option>
+              <option>Standard Hotel</option>
+              <option>Luxury Resort</option>
+              <option>Homestay</option>
+              <option>Camping</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Activities (Optional)</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox"/> Trekking</label>
+              <label><input type="checkbox"/> Skiing</label>
+              <label><input type="checkbox"/> River Rafting</label>
+              <label><input type="checkbox"/> Paragliding</label>
+              <label><input type="checkbox"/> Cultural Tour</label>
+              <label><input type="checkbox"/> Wildlife Safari</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Special Requests</label>
+            <textarea rows="3" placeholder="Any special requirements or notes..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-primary btn-full">
+            <i class="fas fa-check-circle"></i> Confirm Booking
+          </button>
+        </form>
+
+        <!-- Success Message -->
+        <div id="bookingSuccess" class="success-msg" style="display:none;">
+          <i class="fas fa-check-circle"></i>
+          <h3>Booking Confirmed!</h3>
+          <p>Your trip has been booked successfully. A confirmation will be sent to your email.</p>
+          <a href="index.html" class="btn-primary">Back to Home</a>
+        </div>
+      </div>
+
+      <!-- Booking Info Sidebar -->
+      <div class="booking-sidebar">
+        <div class="sidebar-card">
+          <h3><i class="fas fa-shield-alt"></i> Secure Booking</h3>
+          <p>All transactions are encrypted and protected with enterprise-grade security.</p>
+        </div>
+        <div class="sidebar-card">
+          <h3><i class="fas fa-leaf"></i> Eco-Friendly</h3>
+          <p>Your booking contributes to sustainable tourism and environmental conservation.</p>
+        </div>
+        <div class="sidebar-card">
+          <h3><i class="fas fa-headset"></i> 24/7 Support</h3>
+          <p>Our AI-powered support system is available round the clock for assistance.</p>
+        </div>
+        <div class="sidebar-card performance">
+          <h3>System Performance</h3>
+          <div class="perf-item">
+            <span>Response Time</span>
+            <span class="perf-val">&lt; 2 sec</span>
+          </div>
+          <div class="perf-item">
+            <span>System Uptime</span>
+            <span class="perf-val">99%</span>
+          </div>
+          <div class="perf-item">
+            <span>AI Accuracy</span>
+            <span class="perf-val">95%</span>
+          </div>
+          <div class="perf-item">
+            <span>User Satisfaction</span>
+            <span class="perf-val">High</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-bottom">
+      <p>© 2026 GreenPass Tourist Management System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
