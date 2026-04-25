@@ -35,17 +35,19 @@
 
   <section class="page-header">
     <h1>Explore Destinations</h1>
-    <p>Discover breathtaking locations across Jammu & Himachal Pradesh</p>
+    <p>Discover breathtaking locations across Tamil Nadu, Jammu & Himachal Pradesh</p>
   </section>
 
   <!-- Filter Bar -->
   <section class="filter-section">
     <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterDest('all')">All</button>
-      <button class="filter-btn" onclick="filterDest('jammu')">Jammu</button>
-      <button class="filter-btn" onclick="filterDest('himachal')">Himachal Pradesh</button>
-      <button class="filter-btn" onclick="filterDest('adventure')">Adventure</button>
-      <button class="filter-btn" onclick="filterDest('nature')">Nature</button>
+      <button class="filter-btn active" onclick="filterDest('all', this)">All</button>
+      <button class="filter-btn" onclick="filterDest('tamilnadu', this)">Tamil Nadu</button>
+      <button class="filter-btn" onclick="filterDest('jammu', this)">Jammu</button>
+      <button class="filter-btn" onclick="filterDest('himachal', this)">Himachal Pradesh</button>
+      <button class="filter-btn" onclick="filterDest('adventure', this)">Adventure</button>
+      <button class="filter-btn" onclick="filterDest('nature', this)">Nature</button>
+      <button class="filter-btn budget-btn" onclick="filterDest('budget', this)"><i class="fas fa-tag"></i> Under ₹4000</button>
     </div>
   </section>
 
@@ -53,7 +55,153 @@
   <section class="destinations-section">
     <div class="destinations-grid" id="destGrid">
 
-      <div class="dest-card" data-cat="jammu nature">
+      <!-- ===== TAMIL NADU ===== -->
+      <div class="dest-card" data-cat="tamilnadu nature budget" data-price="1800">
+        <div class="dest-img tn1">
+          <span class="dest-badge">Tamil Nadu</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Ooty (Udhagamandalam)</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Nilgiris, Tamil Nadu</p>
+          <div class="dest-meta">
+            <span><i class="fas fa-users"></i> Capacity: 70%</span>
+            <span><i class="fas fa-star"></i> 4.8</span>
+          </div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 1,800 <span>/ per head</span></div>
+          <p class="dest-desc">The Queen of Hill Stations — lush tea gardens, Nilgiri Mountain Railway, and cool misty weather year-round.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="tamilnadu nature budget" data-price="2200">
+        <div class="dest-img tn2">
+          <span class="dest-badge">Tamil Nadu</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Kodaikanal</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Dindigul, Tamil Nadu</p>
+          <div class="dest-meta">
+            <span><i class="fas fa-users"></i> Capacity: 60%</span>
+            <span><i class="fas fa-star"></i> 4.7</span>
+          </div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 2,200 <span>/ per head</span></div>
+          <p class="dest-desc">Princess of Hill Stations — star-shaped lake, pine forests, Coaker's Walk, and breathtaking valley views.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="tamilnadu nature adventure budget" data-price="2500">
+        <div class="dest-img tn3">
+          <span class="dest-badge">Tamil Nadu</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Yercaud</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Salem, Tamil Nadu</p>
+          <div class="dest-meta">
+            <span><i class="fas fa-users"></i> Capacity: 45%</span>
+            <span><i class="fas fa-star"></i> 4.5</span>
+          </div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 2,500 <span>/ per head</span></div>
+          <p class="dest-desc">Jewel of the South — coffee and orange plantations, serene lake, and trekking trails in the Shevaroy Hills.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="tamilnadu nature budget" data-price="1500">
+        <div class="dest-img tn4">
+          <span class="dest-badge">Tamil Nadu</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Valparai</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Coimbatore, Tamil Nadu</p>
+          <div class="dest-meta">
+            <span><i class="fas fa-users"></i> Capacity: 35%</span>
+            <span><i class="fas fa-star"></i> 4.6</span>
+          </div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 1,500 <span>/ per head</span></div>
+          <p class="dest-desc">Hidden gem — vast tea estates, waterfalls, wildlife (elephants & leopards), and 40 hairpin bends of scenic drive.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="tamilnadu nature adventure budget" data-price="3200">
+        <div class="dest-img tn5">
+          <span class="dest-badge">Tamil Nadu</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Mudumalai National Park</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Nilgiris, Tamil Nadu</p>
+          <div class="dest-meta">
+            <span><i class="fas fa-users"></i> Capacity: 50%</span>
+            <span><i class="fas fa-star"></i> 4.7</span>
+          </div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 3,200 <span>/ per head</span></div>
+          <p class="dest-desc">Wildlife sanctuary with tigers, elephants, leopards, and deer — jeep safaris through dense forest corridors.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="tamilnadu nature budget" data-price="2800">
+        <div class="dest-img tn6">
+          <span class="dest-badge">Tamil Nadu</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Hogenakkal Falls</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Dharmapuri, Tamil Nadu</p>
+          <div class="dest-meta">
+            <span><i class="fas fa-users"></i> Capacity: 65%</span>
+            <span><i class="fas fa-star"></i> 4.5</span>
+          </div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 2,800 <span>/ per head</span></div>
+          <p class="dest-desc">Niagara of India — stunning waterfalls on the Kaveri river with coracle boat rides and natural fish spa.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="tamilnadu nature adventure budget" data-price="3500">
+        <div class="dest-img tn7">
+          <span class="dest-badge">Tamil Nadu</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Rameswaram</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Ramanathapuram, Tamil Nadu</p>
+          <div class="dest-meta">
+            <span><i class="fas fa-users"></i> Capacity: 75%</span>
+            <span><i class="fas fa-star"></i> 4.8</span>
+          </div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 3,500 <span>/ per head</span></div>
+          <p class="dest-desc">Sacred island city — Ramanathaswamy Temple, Pamban Bridge, pristine beaches, and the Adam's Bridge viewpoint.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="tamilnadu nature budget" data-price="3800">
+        <div class="dest-img tn8">
+          <span class="dest-badge">Tamil Nadu</span>
+          <span class="eco-badge eco-warn"><i class="fas fa-exclamation-triangle"></i> Moderate</span>
+        </div>
+        <div class="dest-info">
+          <h3>Kanyakumari</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Kanyakumari, Tamil Nadu</p>
+          <div class="dest-meta">
+            <span><i class="fas fa-users"></i> Capacity: 80%</span>
+            <span><i class="fas fa-star"></i> 4.6</span>
+          </div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 3,800 <span>/ per head</span></div>
+          <p class="dest-desc">Southernmost tip of India — where three seas meet, stunning sunrise & sunset, Vivekananda Rock Memorial.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <!-- ===== JAMMU ===== -->
+      <div class="dest-card" data-cat="jammu nature" data-price="6500">
         <div class="dest-img jammu1">
           <span class="dest-badge">Jammu</span>
           <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
@@ -65,80 +213,13 @@
             <span><i class="fas fa-users"></i> Capacity: 80%</span>
             <span><i class="fas fa-star"></i> 4.9</span>
           </div>
+          <div class="price-tag premium"><i class="fas fa-rupee-sign"></i> 6,500 <span>/ per head</span></div>
           <p class="dest-desc">One of the most sacred pilgrimage sites, nestled in the Trikuta Mountains with stunning natural beauty.</p>
           <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
         </div>
       </div>
 
-      <div class="dest-card" data-cat="himachal adventure">
-        <div class="dest-img himachal1">
-          <span class="dest-badge">Himachal</span>
-          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
-        </div>
-        <div class="dest-info">
-          <h3>Manali</h3>
-          <p><i class="fas fa-map-marker-alt"></i> Kullu, Himachal Pradesh</p>
-          <div class="dest-meta">
-            <span><i class="fas fa-users"></i> Capacity: 65%</span>
-            <span><i class="fas fa-star"></i> 4.8</span>
-          </div>
-          <p class="dest-desc">A high-altitude Himalayan resort town known for adventure sports, snow-capped peaks, and scenic valleys.</p>
-          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
-        </div>
-      </div>
-
-      <div class="dest-card" data-cat="himachal nature">
-        <div class="dest-img himachal2">
-          <span class="dest-badge">Himachal</span>
-          <span class="eco-badge eco-warn"><i class="fas fa-exclamation-triangle"></i> Moderate</span>
-        </div>
-        <div class="dest-info">
-          <h3>Shimla</h3>
-          <p><i class="fas fa-map-marker-alt"></i> Shimla, Himachal Pradesh</p>
-          <div class="dest-meta">
-            <span><i class="fas fa-users"></i> Capacity: 90%</span>
-            <span><i class="fas fa-star"></i> 4.7</span>
-          </div>
-          <p class="dest-desc">The Queen of Hills — a charming colonial hill station with lush forests, heritage architecture, and cool climate.</p>
-          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
-        </div>
-      </div>
-
-      <div class="dest-card" data-cat="jammu adventure">
-        <div class="dest-img jammu2">
-          <span class="dest-badge">Jammu</span>
-          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
-        </div>
-        <div class="dest-info">
-          <h3>Patnitop</h3>
-          <p><i class="fas fa-map-marker-alt"></i> Udhampur, Jammu</p>
-          <div class="dest-meta">
-            <span><i class="fas fa-users"></i> Capacity: 55%</span>
-            <span><i class="fas fa-star"></i> 4.6</span>
-          </div>
-          <p class="dest-desc">A beautiful plateau in the Shivalik range offering panoramic views, skiing, and trekking opportunities.</p>
-          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
-        </div>
-      </div>
-
-      <div class="dest-card" data-cat="himachal adventure nature">
-        <div class="dest-img himachal3">
-          <span class="dest-badge">Himachal</span>
-          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
-        </div>
-        <div class="dest-info">
-          <h3>Spiti Valley</h3>
-          <p><i class="fas fa-map-marker-alt"></i> Lahaul-Spiti, Himachal Pradesh</p>
-          <div class="dest-meta">
-            <span><i class="fas fa-users"></i> Capacity: 40%</span>
-            <span><i class="fas fa-star"></i> 4.9</span>
-          </div>
-          <p class="dest-desc">A cold desert mountain valley with ancient monasteries, dramatic landscapes, and pristine wilderness.</p>
-          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
-        </div>
-      </div>
-
-      <div class="dest-card" data-cat="jammu nature">
+      <div class="dest-card" data-cat="jammu nature" data-price="7200">
         <div class="dest-img jammu3">
           <span class="dest-badge">Jammu</span>
           <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
@@ -150,7 +231,45 @@
             <span><i class="fas fa-users"></i> Capacity: 70%</span>
             <span><i class="fas fa-star"></i> 4.8</span>
           </div>
+          <div class="price-tag premium"><i class="fas fa-rupee-sign"></i> 7,200 <span>/ per head</span></div>
           <p class="dest-desc">The iconic jewel of Kashmir — a serene lake with houseboats, Mughal gardens, and breathtaking mountain views.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <!-- ===== HIMACHAL ===== -->
+      <div class="dest-card" data-cat="himachal adventure" data-price="8500">
+        <div class="dest-img himachal1">
+          <span class="dest-badge">Himachal</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Manali</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Kullu, Himachal Pradesh</p>
+          <div class="dest-meta">
+            <span><i class="fas fa-users"></i> Capacity: 65%</span>
+            <span><i class="fas fa-star"></i> 4.8</span>
+          </div>
+          <div class="price-tag premium"><i class="fas fa-rupee-sign"></i> 8,500 <span>/ per head</span></div>
+          <p class="dest-desc">A high-altitude Himalayan resort town known for adventure sports, snow-capped peaks, and scenic valleys.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="himachal nature" data-price="7800">
+        <div class="dest-img himachal2">
+          <span class="dest-badge">Himachal</span>
+          <span class="eco-badge eco-warn"><i class="fas fa-exclamation-triangle"></i> Moderate</span>
+        </div>
+        <div class="dest-info">
+          <h3>Shimla</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Shimla, Himachal Pradesh</p>
+          <div class="dest-meta">
+            <span><i class="fas fa-users"></i> Capacity: 90%</span>
+            <span><i class="fas fa-star"></i> 4.7</span>
+          </div>
+          <div class="price-tag premium"><i class="fas fa-rupee-sign"></i> 7,800 <span>/ per head</span></div>
+          <p class="dest-desc">The Queen of Hills — a charming colonial hill station with lush forests, heritage architecture, and cool climate.</p>
           <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
         </div>
       </div>
@@ -167,7 +286,7 @@
         <p>Crowd levels, environmental conditions, and resource usage are tracked live to ensure sustainable tourism.</p>
       </div>
       <div class="iot-stats">
-        <span><i class="fas fa-thermometer-half"></i> Temp: 18°C</span>
+        <span><i class="fas fa-thermometer-half"></i> Temp: 32°C</span>
         <span><i class="fas fa-wind"></i> Air: Good</span>
         <span><i class="fas fa-users"></i> Crowd: Moderate</span>
       </div>

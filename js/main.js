@@ -1,15 +1,109 @@
+// ===== AUTH GUARD =====
+// Pages that require login
+const protectedPages = ['booking.html', 'destinations.html'];
+const currentPage = window.location.pathname.split('/').pop();
+
+function isLoggedIn() {
+  return localStorage.getItem('gp_user') !== null;
+}
+
+function getUser() {
+  return JSON.parse(localStorage.getItem('gp_user') || 'null');
+}
+
+// Redirect to login if not logged in on protected pages
+if (protectedPages.includes(currentPage) && !isLoggedIn()) {
+  window.location.href = 'login.html?redirect=' + currentPage;
+}
+
+// ===== UPDATE NAVBAR based on login state =====
+document.addEventListener('DOMContentLoaded', () => {
+  const navButtons = document.querySelector('.nav-buttons');
+  if (!navButtons) return;
+
+  if (isLoggedIn()) {
+    const user = getUser();
+    navButtons.innerHTML = `
+      <span class="nav-user"><i class="fas fa-user-circle"></i> ${user.name}</span>
+      <button class="btn-outline" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    `;
+  }
+});
+
 // ===== MOBILE MENU =====
 function toggleMenu() {
   const nav = document.querySelector('.nav-links');
   nav.classList.toggle('open');
 }
 
-// Close menu on link click
 document.querySelectorAll('.nav-links a').forEach(link => {
   link.addEventListener('click', () => {
     document.querySelector('.nav-links').classList.remove('open');
   });
 });
+
+// ===== SIGNUP =====
+function handleSignup(e) {
+  e.preventDefault();
+  const firstName = document.querySelector('#signupForm input[placeholder="First name"]').value;
+  const lastName  = document.querySelector('#signupForm input[placeholder="Last name"]').value;
+  const email     = document.querySelector('#signupForm input[type="email"]').value;
+  const pass      = document.getElementById('signupPass').value;
+  const confirm   = document.getElementById('confirmPass').value;
+
+  if (pass !== confirm) {
+    showError('Passwords do not match. Please try again.');
+    return;
+  }
+  if (pass.length < 6) {
+    showError('Password must be at least 6 characters.');
+    return;
+  }
+
+  // Save user to localStorage
+  const users = JSON.parse(localStorage.getItem('gp_users') || '[]');
+  if (users.find(u => u.email === email)) {
+    showError('An account with this email already exists. Please login.');
+    return;
+  }
+
+  users.push({ name: firstName + ' ' + lastName, email, pass });
+  localStorage.setItem('gp_users', JSON.stringify(users));
+
+  // Auto login
+  localStorage.setItem('gp_user', JSON.stringify({ name: firstName + ' ' + lastName, email }));
+
+  showSuccess('signupForm', 'signupSuccess');
+  setTimeout(() => window.location.href = 'index.html', 1500);
+}
+
+// ===== LOGIN =====
+function handleLogin(e) {
+  e.preventDefault();
+  const email = document.querySelector('#loginForm input[type="email"]').value;
+  const pass  = document.getElementById('loginPass').value;
+
+  const users = JSON.parse(localStorage.getItem('gp_users') || '[]');
+  const user  = users.find(u => u.email === email && u.pass === pass);
+
+  if (!user) {
+    showError('Invalid email or password. Please try again.');
+    return;
+  }
+
+  localStorage.setItem('gp_user', JSON.stringify({ name: user.name, email: user.email }));
+
+  // Redirect back if came from protected page
+  const params = new URLSearchParams(window.location.search);
+  const redirect = params.get('redirect') || 'index.html';
+  window.location.href = redirect;
+}
+
+// ===== LOGOUT =====
+function logout() {
+  localStorage.removeItem('gp_user');
+  window.location.href = 'index.html';
+}
 
 // ===== BOOKING FORM =====
 function submitBooking(e) {
@@ -25,26 +119,6 @@ function submitContact(e) {
   document.getElementById('contactSuccess').style.display = 'block';
 }
 
-// ===== LOGIN =====
-function handleLogin(e) {
-  e.preventDefault();
-  alert('Login successful! Welcome back to GreenPass.');
-  window.location.href = 'index.html';
-}
-
-// ===== SIGNUP =====
-function handleSignup(e) {
-  e.preventDefault();
-  const pass = document.getElementById('signupPass').value;
-  const confirm = document.getElementById('confirmPass').value;
-  if (pass !== confirm) {
-    alert('Passwords do not match. Please try again.');
-    return;
-  }
-  alert('Account created successfully! Welcome to GreenPass.');
-  window.location.href = 'index.html';
-}
-
 // ===== TOGGLE PASSWORD =====
 function togglePass(id) {
   const input = document.getElementById(id);
@@ -55,7 +129,6 @@ function togglePass(id) {
 function toggleFaq(el) {
   const answer = el.nextElementSibling;
   const isOpen = answer.classList.contains('open');
-  // Close all
   document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
   document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
   if (!isOpen) {
@@ -65,20 +138,40 @@ function toggleFaq(el) {
 }
 
 // ===== DESTINATION FILTER =====
-function filterDest(cat) {
-  document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-  event.target.classList.add('active');
-
+function filterDest(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
   document.querySelectorAll('.dest-card').forEach(card => {
-    if (cat === 'all' || card.dataset.cat.includes(cat)) {
+    if (cat === 'all') {
       card.style.display = 'block';
+    } else if (cat === 'budget') {
+      card.style.display = parseInt(card.dataset.price) <= 4000 ? 'block' : 'none';
     } else {
-      card.style.display = 'none';
+      card.style.display = card.dataset.cat.includes(cat) ? 'block' : 'none';
     }
   });
 }
 
-// ===== NAVBAR SCROLL SHADOW =====
+// ===== HELPERS =====
+function showError(msg) {
+  let el = document.getElementById('authError');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'authError';
+    el.className = 'auth-error';
+    const form = document.querySelector('form');
+    form.prepend(el);
+  }
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function showSuccess(formId, successId) {
+  const s = document.getElementById(successId);
+  if (s) { document.getElementById(formId).style.display = 'none'; s.style.display = 'block'; }
+}
+
+// ===== NAVBAR SCROLL =====
 window.addEventListener('scroll', () => {
   const navbar = document.querySelector('.navbar');
   if (navbar) {

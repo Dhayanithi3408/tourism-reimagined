@@ -298,3 +298,59 @@ ul{list-style:none}
   .team-grid{grid-template-columns:1fr}
   .booking-form-box,.auth-box{padding:28px 20px}
 }
+
+/* ===== PRICE TAG ===== */
+.price-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--green-50);
+  border: 1.5px solid var(--green-light);
+  color: var(--green-dark);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+.price-tag span { font-size: 0.75rem; font-weight: 500; color: var(--gray); }
+.price-tag.premium {
+  background: #fff7ed;
+  border-color: #fed7aa;
+  color: #c2410c;
+}
+.budget-btn { background: var(--green-50); border-color: var(--green); color: var(--green); }
+.budget-btn:hover, .budget-btn.active { background: var(--green); color: #fff; }
+
+/* ===== TAMIL NADU CARD COLORS ===== */
+.tn1 { background: linear-gradient(160deg, #064e3b 0%, #059669 100%); }
+.tn2 { background: linear-gradient(160deg, #1e1b4b 0%, #6d28d9 100%); }
+.tn3 { background: linear-gradient(160deg, #422006 0%, #d97706 100%); }
+.tn4 { background: linear-gradient(160deg, #052e16 0%, #16a34a 100%); }
+.tn5 { background: linear-gradient(160deg, #450a0a 0%, #b91c1c 100%); }
+.tn6 { background: linear-gradient(160deg, #0c4a6e 0%, #0284c7 100%); }
+.tn7 { background: linear-gradient(160deg, #4a1d96 0%, #7c3aed 100%); }
+.tn8 { background: linear-gradient(160deg, #7f1d1d 0%, #f97316 100%); }
+
+/* ===== AUTH ERROR ===== */
+.auth-error {
+  background: #fee2e2;
+  border: 1.5px solid #fca5a5;
+  color: #dc2626;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--green);
+  font-size: 0.92rem;
+  padding: 8px 14px;
+  background: var(--green-50);
+  border-radius: 8px;
+}
