@@ -1,4 +1,4 @@
-// ===== GREENPASS AI CHATBOT =====
+// ===== TRAVEL X AI CHATBOT =====
 
 const chatResponses = {
   greetings: ['hi','hello','hey','good morning','good evening','good afternoon','hii','helo'],
@@ -10,18 +10,18 @@ const chatResponses = {
   ai: ['ai','artificial intelligence','recommend','suggestion','personalize'],
   team: ['team','who made','developer','creator','student','dhayanithi','dhivakar','karthikeyan'],
   contact: ['contact','email','phone','address','reach','support','help'],
-  about: ['about','project','what is','greenpass','system','platform'],
+  about: ['about','project','what is','TRAVEL X','system','platform'],
 };
 
 const replies = {
   greetings: [
-    "👋 Hello! Welcome to GreenPass! I'm your AI travel assistant. How can I help you explore today?",
+    "👋 Hello! Welcome to TRAVEL X! I'm your AI travel assistant. How can I help you explore today?",
     "Hi there! 😊 Ready to plan your next eco-friendly adventure? Ask me anything!",
-    "Hey! Welcome aboard GreenPass 🌿 I can help with destinations, bookings, pricing and more!"
+    "Hey! Welcome aboard TRAVEL X 🌿 I can help with destinations, bookings, pricing and more!"
   ],
   booking: [
     "📅 To book a trip, go to our <b>Book Now</b> page! Fill in your destination, dates, number of travelers and accommodation type. It takes less than 2 minutes!",
-    "🎯 Booking is super easy on GreenPass! Head to <b>booking.html</b> — choose your destination, dates, and activities. All secured with JWT authentication!",
+    "🎯 Booking is super easy on TRAVEL X! Head to <b>booking.html</b> — choose your destination, dates, and activities. All secured with JWT authentication!",
   ],
   destinations: [
     "🗺️ We have <b>12 amazing destinations</b>!<br><br><b>Tamil Nadu (under ₹4,000):</b><br>• Ooty — ₹1,800<br>• Kodaikanal — ₹2,200<br>• Yercaud — ₹2,500<br>• Valparai — ₹1,500<br>• Hogenakkal — ₹2,800<br>• Mudumalai — ₹3,200<br>• Rameswaram — ₹3,500<br>• Kanyakumari — ₹3,800<br><br><b>Also:</b> Manali, Shimla, Vaishno Devi, Dal Lake!",
@@ -36,26 +36,26 @@ const replies = {
     "👤 Already have an account? Click <b>Login</b> in the top right. New here? <b>Sign Up</b> is free and takes 30 seconds!",
   ],
   eco: [
-    "🌿 GreenPass uses <b>IoT sensors</b> at destinations to monitor:<br>• 🌡️ Temperature<br>• 💨 Air Quality Index<br>• 👥 Crowd Density<br>• ⚡ Energy Usage<br><br>Destinations are rated <b>Eco-Safe</b> or <b>Moderate</b> based on live data!",
+    "🌿 TRAVEL X uses <b>IoT sensors</b> at destinations to monitor:<br>• 🌡️ Temperature<br>• 💨 Air Quality Index<br>• 👥 Crowd Density<br>• ⚡ Energy Usage<br><br>Destinations are rated <b>Eco-Safe</b> or <b>Moderate</b> based on live data!",
     "♻️ We're committed to sustainable tourism! Our IoT monitoring system tracks environmental conditions in real-time to prevent overcrowding and protect nature.",
   ],
   ai: [
     "🧠 Our AI recommendation system analyzes your <b>travel preferences, history, and real-time context</b> to suggest the perfect destination with <b>95% accuracy</b>!<br><br>It uses machine learning models trained on thousands of travel patterns.",
-    "🤖 GreenPass AI provides personalized recommendations, predictive analytics, and 24/7 chatbot support — that's me! 😄",
+    "🤖 TRAVEL X AI provides personalized recommendations, predictive analytics, and 24/7 chatbot support — that's me! 😄",
   ],
   team: [
-    "👨‍💻 GreenPass was built by:<br><br>• <b>Dhayanithi G</b> — 922523244008<br>• <b>Dhivakar T</b> — 922523244009<br>• <b>Karthikeyan S</b> — 922523244022<br><br>B.Tech CSBS, V.S.B. Engineering College, Karur<br>Supervisor: <b>Dr. M. Sangeetha M.E., Ph.D.</b>",
+    "👨‍💻 TRAVEL X was built by:<br><br>• <b>Dhayanithi G</b> — 922523244008<br>• <b>Dhivakar T</b> — 922523244009<br>• <b>Karthikeyan S</b> — 922523244022<br><br>B.Tech CSBS, V.S.B. Engineering College, Karur<br>Supervisor: <b>Dr. M. Sangeetha M.E., Ph.D.</b>",
   ],
   contact: [
-    "📞 You can reach us at:<br><br>📧 greenpass@vsb.edu.in<br>📧 support@greenpass.in<br>📍 V.S.B. Engineering College, Karur - 639 111<br>📱 +91 98765 43210<br><br>Or visit our <b>Contact</b> page!",
+    "📞 You can reach us at:<br><br>📧 TRAVEL X@vsb.edu.in<br>📧 support@TRAVEL X.in<br>📍 V.S.B. Engineering College, Karur - 639 111<br>📱 +91 98765 43210<br><br>Or visit our <b>Contact</b> page!",
   ],
   about: [
-    "🌐 <b>GreenPass</b> is a Smart Integrated Tourism Ecosystem for post-pandemic recovery.<br><br>It uses <b>AI + IoT + Cloud Computing</b> to connect tourists, service providers, local communities and administrators on one unified platform.<br><br>Built by CSBS students at V.S.B. Engineering College, Karur.",
+    "🌐 <b>TRAVEL X</b> is a Smart Integrated Tourism Ecosystem for post-pandemic recovery.<br><br>It uses <b>AI + IoT + Cloud Computing</b> to connect tourists, service providers, local communities and administrators on one unified platform.<br><br>Built by CSBS students at V.S.B. Engineering College, Karur.",
   ],
   default: [
     "🤔 I'm not sure about that, but I can help with:<br>• 🗺️ Destinations & pricing<br>• 📅 Booking a trip<br>• 🔐 Login / Sign up<br>• 🌿 Eco & IoT features<br>• 👥 About the team<br><br>What would you like to know?",
     "💬 Try asking me about destinations, prices, booking, or our eco features! I'm here to help 😊",
-    "🌿 I can answer questions about GreenPass destinations, pricing, booking process, AI features, and more. What's on your mind?",
+    "🌿 I can answer questions about TRAVEL X destinations, pricing, booking process, AI features, and more. What's on your mind?",
   ]
 };
 
@@ -82,7 +82,7 @@ function createChatbot() {
       <div id="chat-header-info">
         <div id="chat-avatar">🤖</div>
         <div>
-          <div id="chat-name">GreenPass AI</div>
+          <div id="chat-name">TRAVEL X AI</div>
           <div id="chat-status"><span class="dot"></span> Online</div>
         </div>
       </div>
@@ -183,7 +183,7 @@ function createChatbot() {
 
   // Welcome message after 1.5s
   setTimeout(() => {
-    addMsg('bot', "👋 Hi! I'm <b>GreenPass AI</b> — your smart travel assistant!<br>Ask me about destinations, pricing, booking, or anything about our platform 🌿");
+    addMsg('bot', "👋 Hi! I'm <b>TRAVEL X AI</b> — your smart travel assistant!<br>Ask me about destinations, pricing, booking, or anything about our platform 🌿");
     document.getElementById('chat-badge').style.display = 'flex';
   }, 1500);
 }
@@ -232,3 +232,4 @@ function quickAsk(q) {
 
 // Init on DOM ready
 document.addEventListener('DOMContentLoaded', createChatbot);
+

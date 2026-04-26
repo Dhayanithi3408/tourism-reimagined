@@ -5,7 +5,7 @@ const googleAccounts = [
   { name: 'Dhayanithi G',    email: 'dhayanithi3408@gmail.com',   avatar: 'D', color: '#4285f4' },
   { name: 'Dhivakar T',      email: 'dhivakar.t2024@gmail.com',   avatar: 'D', color: '#ea4335' },
   { name: 'Karthikeyan S',   email: 'karthikeyan.s22@gmail.com',  avatar: 'K', color: '#34a853' },
-  { name: 'GreenPass User',  email: 'greenpass.user@gmail.com',   avatar: 'G', color: '#fbbc05' },
+  { name: 'TRAVEL X User',  email: 'TRAVEL X.user@gmail.com',   avatar: 'G', color: '#fbbc05' },
 ];
 
 function createGoogleModal() {
@@ -24,7 +24,7 @@ function createGoogleModal() {
           <path d="M63.93 11.77c-.14-.37-.57-1.07-.91-1.4l2.1-1.73c.56.69 1.43 1.88 1.43 3.13 0 1.25-.87 2.44-1.43 3.13l-2.1-1.73c.34-.33.77-1.03.91-1.4z" fill="#EA4335"/>
         </svg>
         <div id="gp-title">Choose an account</div>
-        <div id="gp-sub">to continue to GreenPass</div>
+        <div id="gp-sub">to continue to TRAVEL X</div>
       </div>
       <div id="gp-accounts">
         ${googleAccounts.map((acc, i) => `
@@ -196,3 +196,4 @@ function signInWithEmail() {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeGoogleModal();
 });
+
