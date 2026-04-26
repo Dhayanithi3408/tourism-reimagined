@@ -215,6 +215,33 @@
     <option value="Kalka">
   </datalist>
 
+  <!-- Quick Destination Selector -->
+  <section style="background:#fff;padding:24px 32px;border-bottom:1px solid var(--border)">
+    <div style="max-width:900px;margin:0 auto">
+      <div style="font-size:0.8rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">🏔️ Quick Search by Destination</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap" id="destQuickBtns">
+        <button class="dest-quick-btn" onclick="quickSearch('ooty')">🌿 Ooty</button>
+        <button class="dest-quick-btn" onclick="quickSearch('kodaikanal')">🏔️ Kodaikanal</button>
+        <button class="dest-quick-btn" onclick="quickSearch('munnar')">🍵 Munnar</button>
+        <button class="dest-quick-btn" onclick="quickSearch('alleppey')">🚢 Alleppey</button>
+        <button class="dest-quick-btn" onclick="quickSearch('rameswaram')">🛕 Rameswaram</button>
+        <button class="dest-quick-btn" onclick="quickSearch('kanyakumari')">🌊 Kanyakumari</button>
+        <button class="dest-quick-btn" onclick="quickSearch('manali')">⛷️ Manali</button>
+        <button class="dest-quick-btn" onclick="quickSearch('shimla')">🏡 Shimla</button>
+        <button class="dest-quick-btn" onclick="quickSearch('gulmarg')">🎿 Gulmarg</button>
+        <button class="dest-quick-btn" onclick="quickSearch('vaishno')">🙏 Vaishno Devi</button>
+        <button class="dest-quick-btn" onclick="quickSearch('dharamshala')">☮️ Dharamshala</button>
+        <button class="dest-quick-btn" onclick="quickSearch('wayanad')">🌳 Wayanad</button>
+        <button class="dest-quick-btn" onclick="quickSearch('pondicherry')">🇫🇷 Pondicherry</button>
+        <button class="dest-quick-btn" onclick="quickSearch('thekkady')">🐘 Thekkady</button>
+      </div>
+    </div>
+  </section>
+  <style>
+    .dest-quick-btn{padding:8px 16px;border:1.5px solid var(--border);border-radius:20px;background:#fff;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:inherit;color:var(--dark)}
+    .dest-quick-btn:hover,.dest-quick-btn.active{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;border-color:#1e3a8a;transform:translateY(-1px)}
+  </style>
+
   <!-- Loading -->
   <div class="loading-spinner" id="loadingSpinner">
     <div class="spinner"></div>
@@ -269,54 +296,148 @@
 
   // ===== FLIGHT DATA =====
   const flightDB = [
-    { airline:'IndiGo', code:'6E-201', logo:'✈️', color:'#1e3a8a', from:'Chennai', to:'Coimbatore', dep:'06:00', arr:'07:10', dur:'1h 10m', stops:'Non-stop', price:2499, tags:['Meal','USB Charging'] },
-    { airline:'Air India', code:'AI-543', logo:'🛫', color:'#dc2626', from:'Chennai', to:'Coimbatore', dep:'08:30', arr:'09:45', dur:'1h 15m', stops:'Non-stop', price:3200, tags:['Meal','Extra Legroom'] },
-    { airline:'SpiceJet', code:'SG-112', logo:'🌶️', color:'#ea580c', from:'Chennai', to:'Coimbatore', dep:'11:00', arr:'12:15', dur:'1h 15m', stops:'Non-stop', price:1899, tags:['Budget'] },
-    { airline:'IndiGo', code:'6E-405', logo:'✈️', color:'#1e3a8a', from:'Chennai', to:'Madurai', dep:'07:15', arr:'08:20', dur:'1h 05m', stops:'Non-stop', price:2199, tags:['Meal'] },
-    { airline:'Air India', code:'AI-671', logo:'🛫', color:'#dc2626', from:'Chennai', to:'Madurai', dep:'13:00', arr:'14:10', dur:'1h 10m', stops:'Non-stop', price:2800, tags:['Meal','Priority Boarding'] },
-    { airline:'IndiGo', code:'6E-789', logo:'✈️', color:'#1e3a8a', from:'Chennai', to:'Kochi', dep:'09:00', arr:'10:20', dur:'1h 20m', stops:'Non-stop', price:2699, tags:['Meal'] },
-    { airline:'Vistara', code:'UK-234', logo:'💜', color:'#7c3aed', from:'Chennai', to:'Kochi', dep:'15:30', arr:'16:55', dur:'1h 25m', stops:'Non-stop', price:3800, tags:['Meal','Premium Economy'] },
-    { airline:'IndiGo', code:'6E-901', logo:'✈️', color:'#1e3a8a', from:'Delhi', to:'Chandigarh', dep:'06:30', arr:'07:40', dur:'1h 10m', stops:'Non-stop', price:2999, tags:['Meal'] },
-    { airline:'Air India', code:'AI-102', logo:'🛫', color:'#dc2626', from:'Delhi', to:'Chandigarh', dep:'10:00', arr:'11:15', dur:'1h 15m', stops:'Non-stop', price:3500, tags:['Meal','Lounge Access'] },
-    { airline:'SpiceJet', code:'SG-445', logo:'🌶️', color:'#ea580c', from:'Delhi', to:'Chandigarh', dep:'14:00', arr:'15:10', dur:'1h 10m', stops:'Non-stop', price:1999, tags:['Budget'] },
-    { airline:'IndiGo', code:'6E-567', logo:'✈️', color:'#1e3a8a', from:'Delhi', to:'Jammu', dep:'07:00', arr:'08:30', dur:'1h 30m', stops:'Non-stop', price:3299, tags:['Meal'] },
-    { airline:'Air India', code:'AI-445', logo:'🛫', color:'#dc2626', from:'Delhi', to:'Jammu', dep:'12:00', arr:'13:35', dur:'1h 35m', stops:'Non-stop', price:4200, tags:['Meal','Priority'] },
-    { airline:'IndiGo', code:'6E-321', logo:'✈️', color:'#1e3a8a', from:'Delhi', to:'Srinagar', dep:'08:00', arr:'09:45', dur:'1h 45m', stops:'Non-stop', price:4500, tags:['Meal'] },
-    { airline:'Vistara', code:'UK-890', logo:'💜', color:'#7c3aed', from:'Delhi', to:'Srinagar', dep:'11:30', arr:'13:20', dur:'1h 50m', stops:'Non-stop', price:5800, tags:['Meal','Business Class'] },
-    { airline:'IndiGo', code:'6E-654', logo:'✈️', color:'#1e3a8a', from:'Mumbai', to:'Kochi', dep:'07:30', arr:'09:20', dur:'1h 50m', stops:'Non-stop', price:3499, tags:['Meal'] },
-    { airline:'Air India', code:'AI-789', logo:'🛫', color:'#dc2626', from:'Mumbai', to:'Kochi', dep:'14:00', arr:'15:55', dur:'1h 55m', stops:'Non-stop', price:4100, tags:['Meal','Extra Legroom'] },
-    { airline:'IndiGo', code:'6E-432', logo:'✈️', color:'#1e3a8a', from:'Bangalore', to:'Coimbatore', dep:'06:45', arr:'07:45', dur:'1h 00m', stops:'Non-stop', price:1799, tags:['Budget'] },
-    { airline:'SpiceJet', code:'SG-678', logo:'🌶️', color:'#ea580c', from:'Bangalore', to:'Coimbatore', dep:'12:30', arr:'13:35', dur:'1h 05m', stops:'Non-stop', price:1599, tags:['Budget'] },
-    { airline:'IndiGo', code:'6E-111', logo:'✈️', color:'#1e3a8a', from:'Bangalore', to:'Kochi', dep:'08:00', arr:'09:10', dur:'1h 10m', stops:'Non-stop', price:2299, tags:['Meal'] },
-    { airline:'Vistara', code:'UK-456', logo:'💜', color:'#7c3aed', from:'Bangalore', to:'Kochi', dep:'17:00', arr:'18:15', dur:'1h 15m', stops:'Non-stop', price:3600, tags:['Meal','Premium'] },
-    { airline:'IndiGo', code:'6E-222', logo:'✈️', color:'#1e3a8a', from:'Hyderabad', to:'Kochi', dep:'09:30', arr:'11:00', dur:'1h 30m', stops:'Non-stop', price:2799, tags:['Meal'] },
-    { airline:'Air India', code:'AI-333', logo:'🛫', color:'#dc2626', from:'Kolkata', to:'Delhi', dep:'06:00', arr:'08:30', dur:'2h 30m', stops:'Non-stop', price:4800, tags:['Meal'] },
-    { airline:'IndiGo', code:'6E-999', logo:'✈️', color:'#1e3a8a', from:'Chennai', to:'Delhi', dep:'05:30', arr:'08:15', dur:'2h 45m', stops:'Non-stop', price:5200, tags:['Meal'] },
-    { airline:'SpiceJet', code:'SG-888', logo:'🌶️', color:'#ea580c', from:'Chennai', to:'Delhi', dep:'10:00', arr:'12:50', dur:'2h 50m', stops:'Non-stop', price:3900, tags:['Budget'] },
-    { airline:'IndiGo', code:'6E-777', logo:'✈️', color:'#1e3a8a', from:'Chennai', to:'Mumbai', dep:'07:00', arr:'09:10', dur:'2h 10m', stops:'Non-stop', price:3600, tags:['Meal'] },
-    { airline:'Vistara', code:'UK-111', logo:'💜', color:'#7c3aed', from:'Chennai', to:'Mumbai', dep:'16:00', arr:'18:15', dur:'2h 15m', stops:'Non-stop', price:5200, tags:['Meal','Business'] },
+    // ── OOTY (nearest airport: Coimbatore, 88km) ──
+    { airline:'IndiGo',   code:'6E-201', logo:'✈️', color:'#1e3a8a', from:'Chennai',   to:'Coimbatore (for Ooty)',    dep:'06:00', arr:'07:10', dur:'1h 10m', stops:'Non-stop', price:2499, tags:['Meal','Nearest to Ooty'], dest:'ooty' },
+    { airline:'Air India',code:'AI-543', logo:'🛫', color:'#dc2626', from:'Chennai',   to:'Coimbatore (for Ooty)',    dep:'08:30', arr:'09:45', dur:'1h 15m', stops:'Non-stop', price:3200, tags:['Meal','Extra Legroom'],    dest:'ooty' },
+    { airline:'SpiceJet', code:'SG-112', logo:'🌶️', color:'#ea580c', from:'Chennai',   to:'Coimbatore (for Ooty)',    dep:'14:00', arr:'15:10', dur:'1h 10m', stops:'Non-stop', price:1899, tags:['Budget'],                  dest:'ooty' },
+    { airline:'IndiGo',   code:'6E-310', logo:'✈️', color:'#1e3a8a', from:'Bangalore', to:'Coimbatore (for Ooty)',    dep:'07:30', arr:'08:30', dur:'1h 00m', stops:'Non-stop', price:1799, tags:['Budget','Nearest to Ooty'],dest:'ooty' },
+    { airline:'IndiGo',   code:'6E-405', logo:'✈️', color:'#1e3a8a', from:'Delhi',     to:'Coimbatore (for Ooty)',    dep:'06:00', arr:'09:30', dur:'3h 30m', stops:'1 Stop',   price:5200, tags:['Meal'],                    dest:'ooty' },
+
+    // ── KODAIKANAL (nearest airport: Madurai, 120km) ──
+    { airline:'IndiGo',   code:'6E-405', logo:'✈️', color:'#1e3a8a', from:'Chennai',   to:'Madurai (for Kodaikanal)', dep:'07:15', arr:'08:20', dur:'1h 05m', stops:'Non-stop', price:2199, tags:['Meal','Nearest to Kodaikanal'], dest:'kodaikanal' },
+    { airline:'Air India',code:'AI-671', logo:'🛫', color:'#dc2626', from:'Chennai',   to:'Madurai (for Kodaikanal)', dep:'13:00', arr:'14:10', dur:'1h 10m', stops:'Non-stop', price:2800, tags:['Meal','Priority'],              dest:'kodaikanal' },
+    { airline:'SpiceJet', code:'SG-220', logo:'🌶️', color:'#ea580c', from:'Bangalore', to:'Madurai (for Kodaikanal)', dep:'09:00', arr:'10:10', dur:'1h 10m', stops:'Non-stop', price:1999, tags:['Budget'],                       dest:'kodaikanal' },
+
+    // ── MUNNAR (nearest airport: Kochi, 130km) ──
+    { airline:'IndiGo',   code:'6E-789', logo:'✈️', color:'#1e3a8a', from:'Chennai',   to:'Kochi (for Munnar)',       dep:'09:00', arr:'10:20', dur:'1h 20m', stops:'Non-stop', price:2699, tags:['Meal','Nearest to Munnar'],  dest:'munnar' },
+    { airline:'Vistara',  code:'UK-234', logo:'💜', color:'#7c3aed', from:'Chennai',   to:'Kochi (for Munnar)',       dep:'15:30', arr:'16:55', dur:'1h 25m', stops:'Non-stop', price:3800, tags:['Meal','Premium Economy'],     dest:'munnar' },
+    { airline:'IndiGo',   code:'6E-111', logo:'✈️', color:'#1e3a8a', from:'Bangalore', to:'Kochi (for Munnar)',       dep:'08:00', arr:'09:10', dur:'1h 10m', stops:'Non-stop', price:2299, tags:['Meal'],                       dest:'munnar' },
+    { airline:'Air India',code:'AI-789', logo:'🛫', color:'#dc2626', from:'Mumbai',    to:'Kochi (for Munnar)',       dep:'07:30', arr:'09:20', dur:'1h 50m', stops:'Non-stop', price:3499, tags:['Meal'],                       dest:'munnar' },
+    { airline:'IndiGo',   code:'6E-555', logo:'✈️', color:'#1e3a8a', from:'Delhi',     to:'Kochi (for Munnar)',       dep:'06:30', arr:'09:45', dur:'3h 15m', stops:'Non-stop', price:5800, tags:['Meal'],                       dest:'munnar' },
+
+    // ── ALLEPPEY (nearest airport: Kochi, 85km) ──
+    { airline:'IndiGo',   code:'6E-790', logo:'✈️', color:'#1e3a8a', from:'Chennai',   to:'Kochi (for Alleppey)',     dep:'10:30', arr:'11:50', dur:'1h 20m', stops:'Non-stop', price:2799, tags:['Meal','Nearest to Alleppey'], dest:'alleppey' },
+    { airline:'SpiceJet', code:'SG-445', logo:'🌶️', color:'#ea580c', from:'Delhi',     to:'Kochi (for Alleppey)',     dep:'07:00', arr:'10:15', dur:'3h 15m', stops:'Non-stop', price:5200, tags:['Budget'],                      dest:'alleppey' },
+
+    // ── RAMESWARAM (nearest airport: Madurai, 163km) ──
+    { airline:'IndiGo',   code:'6E-406', logo:'✈️', color:'#1e3a8a', from:'Chennai',   to:'Madurai (for Rameswaram)', dep:'11:00', arr:'12:05', dur:'1h 05m', stops:'Non-stop', price:2399, tags:['Meal','Nearest to Rameswaram'], dest:'rameswaram' },
+    { airline:'Air India',code:'AI-672', logo:'🛫', color:'#dc2626', from:'Bangalore', to:'Madurai (for Rameswaram)', dep:'08:30', arr:'09:40', dur:'1h 10m', stops:'Non-stop', price:2900, tags:['Meal'],                           dest:'rameswaram' },
+
+    // ── KANYAKUMARI (nearest airport: Thiruvananthapuram, 87km) ──
+    { airline:'IndiGo',   code:'6E-501', logo:'✈️', color:'#1e3a8a', from:'Chennai',   to:'Trivandrum (for Kanyakumari)', dep:'08:00', arr:'09:20', dur:'1h 20m', stops:'Non-stop', price:2599, tags:['Meal','Nearest to Kanyakumari'], dest:'kanyakumari' },
+    { airline:'Air India',code:'AI-502', logo:'🛫', color:'#dc2626', from:'Mumbai',    to:'Trivandrum (for Kanyakumari)', dep:'10:00', arr:'12:10', dur:'2h 10m', stops:'Non-stop', price:4200, tags:['Meal'],                           dest:'kanyakumari' },
+
+    // ── MANALI (nearest airport: Bhuntar/Kullu, 50km) ──
+    { airline:'Air India',code:'AI-445', logo:'🛫', color:'#dc2626', from:'Delhi',     to:'Kullu-Manali Airport',     dep:'08:00', arr:'09:10', dur:'1h 10m', stops:'Non-stop', price:4800, tags:['Meal','Scenic Flight'],  dest:'manali' },
+    { airline:'SpiceJet', code:'SG-446', logo:'🌶️', color:'#ea580c', from:'Delhi',     to:'Kullu-Manali Airport',     dep:'13:00', arr:'14:15', dur:'1h 15m', stops:'Non-stop', price:3900, tags:['Budget'],                dest:'manali' },
+    { airline:'IndiGo',   code:'6E-447', logo:'✈️', color:'#1e3a8a', from:'Mumbai',    to:'Kullu-Manali Airport',     dep:'07:30', arr:'09:30', dur:'2h 00m', stops:'Non-stop', price:5500, tags:['Meal'],                  dest:'manali' },
+
+    // ── SHIMLA (nearest airport: Shimla Airport / Chandigarh 120km) ──
+    { airline:'Air India',code:'AI-102', logo:'🛫', color:'#dc2626', from:'Delhi',     to:'Chandigarh (for Shimla)',   dep:'10:00', arr:'11:15', dur:'1h 15m', stops:'Non-stop', price:3500, tags:['Meal','Nearest to Shimla'], dest:'shimla' },
+    { airline:'IndiGo',   code:'6E-901', logo:'✈️', color:'#1e3a8a', from:'Delhi',     to:'Chandigarh (for Shimla)',   dep:'06:30', arr:'07:40', dur:'1h 10m', stops:'Non-stop', price:2999, tags:['Meal'],                    dest:'shimla' },
+    { airline:'SpiceJet', code:'SG-445', logo:'🌶️', color:'#ea580c', from:'Delhi',     to:'Chandigarh (for Shimla)',   dep:'14:00', arr:'15:10', dur:'1h 10m', stops:'Non-stop', price:1999, tags:['Budget'],                  dest:'shimla' },
+
+    // ── GULMARG / SRINAGAR (nearest airport: Srinagar, 56km) ──
+    { airline:'IndiGo',   code:'6E-321', logo:'✈️', color:'#1e3a8a', from:'Delhi',     to:'Srinagar (for Gulmarg)',    dep:'08:00', arr:'09:45', dur:'1h 45m', stops:'Non-stop', price:4500, tags:['Meal','Scenic'],           dest:'gulmarg' },
+    { airline:'Vistara',  code:'UK-890', logo:'💜', color:'#7c3aed', from:'Delhi',     to:'Srinagar (for Gulmarg)',    dep:'11:30', arr:'13:20', dur:'1h 50m', stops:'Non-stop', price:5800, tags:['Meal','Business Class'],    dest:'gulmarg' },
+    { airline:'Air India',code:'AI-446', logo:'🛫', color:'#dc2626', from:'Mumbai',    to:'Srinagar (for Gulmarg)',    dep:'06:00', arr:'08:30', dur:'2h 30m', stops:'Non-stop', price:6200, tags:['Meal'],                     dest:'gulmarg' },
+
+    // ── VAISHNO DEVI (nearest airport: Jammu, 50km) ──
+    { airline:'IndiGo',   code:'6E-567', logo:'✈️', color:'#1e3a8a', from:'Delhi',     to:'Jammu (for Vaishno Devi)', dep:'07:00', arr:'08:30', dur:'1h 30m', stops:'Non-stop', price:3299, tags:['Meal','Nearest to Vaishno Devi'], dest:'vaishno' },
+    { airline:'Air India',code:'AI-445', logo:'🛫', color:'#dc2626', from:'Delhi',     to:'Jammu (for Vaishno Devi)', dep:'12:00', arr:'13:35', dur:'1h 35m', stops:'Non-stop', price:4200, tags:['Meal','Priority'],                dest:'vaishno' },
+    { airline:'SpiceJet', code:'SG-568', logo:'🌶️', color:'#ea580c', from:'Mumbai',    to:'Jammu (for Vaishno Devi)', dep:'09:00', arr:'11:15', dur:'2h 15m', stops:'Non-stop', price:4800, tags:['Budget'],                         dest:'vaishno' },
+
+    // ── DHARAMSHALA (nearest airport: Gaggal/Kangra, 15km) ──
+    { airline:'Air India',code:'AI-233', logo:'🛫', color:'#dc2626', from:'Delhi',     to:'Dharamshala Airport',      dep:'09:00', arr:'10:10', dur:'1h 10m', stops:'Non-stop', price:4100, tags:['Meal','Direct to Dharamshala'], dest:'dharamshala' },
+    { airline:'SpiceJet', code:'SG-234', logo:'🌶️', color:'#ea580c', from:'Delhi',     to:'Dharamshala Airport',      dep:'14:30', arr:'15:45', dur:'1h 15m', stops:'Non-stop', price:3200, tags:['Budget'],                       dest:'dharamshala' },
+
+    // ── WAYANAD (nearest airport: Calicut/Kozhikode, 90km) ──
+    { airline:'IndiGo',   code:'6E-601', logo:'✈️', color:'#1e3a8a', from:'Chennai',   to:'Calicut (for Wayanad)',    dep:'09:30', arr:'10:50', dur:'1h 20m', stops:'Non-stop', price:2899, tags:['Meal','Nearest to Wayanad'], dest:'wayanad' },
+    { airline:'Air India',code:'AI-602', logo:'🛫', color:'#dc2626', from:'Mumbai',    to:'Calicut (for Wayanad)',    dep:'08:00', arr:'09:50', dur:'1h 50m', stops:'Non-stop', price:3800, tags:['Meal'],                       dest:'wayanad' },
+
+    // ── THEKKADY (nearest airport: Madurai, 140km) ──
+    { airline:'IndiGo',   code:'6E-407', logo:'✈️', color:'#1e3a8a', from:'Chennai',   to:'Madurai (for Thekkady)',   dep:'16:00', arr:'17:05', dur:'1h 05m', stops:'Non-stop', price:2299, tags:['Meal','Nearest to Thekkady'], dest:'thekkady' },
+
+    // ── PONDICHERRY (nearest airport: Chennai, 160km) ──
+    { airline:'IndiGo',   code:'6E-701', logo:'✈️', color:'#1e3a8a', from:'Bangalore', to:'Chennai (for Pondicherry)',dep:'07:00', arr:'08:10', dur:'1h 10m', stops:'Non-stop', price:1899, tags:['Budget','Nearest to Pondicherry'], dest:'pondicherry' },
+    { airline:'Air India',code:'AI-702', logo:'🛫', color:'#dc2626', from:'Delhi',     to:'Chennai (for Pondicherry)',dep:'06:00', arr:'08:45', dur:'2h 45m', stops:'Non-stop', price:5200, tags:['Meal'],                              dest:'pondicherry' },
   ];
 
   // ===== TRAIN DATA =====
   const trainDB = [
-    { name:'Nilgiri Express', num:'12671', from:'Chennai Egmore', to:'Coimbatore', dep:'21:45', arr:'05:30', dur:'7h 45m', days:'Daily', classes:[{cls:'1A',price:1850,avail:'Available'},{cls:'2A',price:1100,avail:'Available'},{cls:'3A',price:780,avail:'WL 12'},{cls:'SL',price:290,avail:'Available'}] },
-    { name:'Kovai Express', num:'12243', from:'Chennai Egmore', to:'Coimbatore', dep:'06:20', arr:'12:45', dur:'6h 25m', days:'Daily', classes:[{cls:'2A',price:1050,avail:'Available'},{cls:'3A',price:740,avail:'Available'},{cls:'SL',price:275,avail:'RAC 5'}] },
-    { name:'Cheran Express', num:'12673', from:'Chennai Egmore', to:'Coimbatore', dep:'22:00', arr:'06:15', dur:'8h 15m', days:'Daily', classes:[{cls:'1A',price:1900,avail:'Available'},{cls:'2A',price:1120,avail:'WL 3'},{cls:'3A',price:800,avail:'Available'},{cls:'SL',price:300,avail:'Available'}] },
-    { name:'Pandian Express', num:'12637', from:'Chennai Egmore', to:'Madurai', dep:'21:00', arr:'05:30', dur:'8h 30m', days:'Daily', classes:[{cls:'1A',price:2100,avail:'Available'},{cls:'2A',price:1250,avail:'Available'},{cls:'3A',price:890,avail:'Available'},{cls:'SL',price:330,avail:'WL 8'}] },
-    { name:'Vaigai Express', num:'12635', from:'Chennai Egmore', to:'Madurai', dep:'12:15', arr:'20:30', dur:'8h 15m', days:'Daily', classes:[{cls:'2A',price:1200,avail:'Available'},{cls:'3A',price:850,avail:'Available'},{cls:'SL',price:315,avail:'Available'}] },
-    { name:'Island Express', num:'16331', from:'Chennai Central', to:'Kochi', dep:'19:30', arr:'09:45', dur:'14h 15m', days:'Daily', classes:[{cls:'1A',price:2800,avail:'Available'},{cls:'2A',price:1650,avail:'Available'},{cls:'3A',price:1180,avail:'WL 5'},{cls:'SL',price:440,avail:'Available'}] },
-    { name:'Sabari Express', num:'16343', from:'Chennai Central', to:'Kochi', dep:'15:00', arr:'05:30', dur:'14h 30m', days:'Daily', classes:[{cls:'2A',price:1600,avail:'Available'},{cls:'3A',price:1140,avail:'Available'},{cls:'SL',price:425,avail:'Available'}] },
-    { name:'Rajdhani Express', num:'12431', from:'Delhi', to:'Chandigarh', dep:'17:00', arr:'20:30', dur:'3h 30m', days:'Daily', classes:[{cls:'1A',price:2200,avail:'Available'},{cls:'2A',price:1300,avail:'Available'},{cls:'3A',price:950,avail:'WL 2'}] },
-    { name:'Shatabdi Express', num:'12011', from:'Delhi', to:'Chandigarh', dep:'07:20', arr:'10:35', dur:'3h 15m', days:'Daily', classes:[{cls:'CC',price:890,avail:'Available'},{cls:'EC',price:1650,avail:'Available'}] },
-    { name:'Jammu Tawi Express', num:'12445', from:'Delhi', to:'Jammu Tawi', dep:'20:30', arr:'06:45', dur:'10h 15m', days:'Daily', classes:[{cls:'1A',price:2600,avail:'Available'},{cls:'2A',price:1550,avail:'Available'},{cls:'3A',price:1100,avail:'Available'},{cls:'SL',price:410,avail:'WL 15'}] },
-    { name:'Uttar Sampark Kranti', num:'12471', from:'Delhi', to:'Jammu Tawi', dep:'16:45', arr:'03:30', dur:'10h 45m', days:'Daily', classes:[{cls:'2A',price:1480,avail:'Available'},{cls:'3A',price:1050,avail:'Available'},{cls:'SL',price:390,avail:'Available'}] },
-    { name:'Swaraj Express', num:'12471', from:'Delhi', to:'Pathankot', dep:'19:00', arr:'05:30', dur:'10h 30m', days:'Daily', classes:[{cls:'2A',price:1400,avail:'Available'},{cls:'3A',price:990,avail:'WL 6'},{cls:'SL',price:370,avail:'Available'}] },
-    { name:'Kalka Mail', num:'12311', from:'Delhi', to:'Kalka', dep:'22:00', arr:'05:30', dur:'7h 30m', days:'Daily', classes:[{cls:'1A',price:2100,avail:'Available'},{cls:'2A',price:1250,avail:'Available'},{cls:'3A',price:890,avail:'Available'},{cls:'SL',price:330,avail:'Available'}] },
-    { name:'Himalayan Queen', num:'52455', from:'Kalka', to:'Shimla', dep:'06:00', arr:'10:30', dur:'4h 30m', days:'Daily', classes:[{cls:'FC',price:450,avail:'Available'},{cls:'2S',price:180,avail:'Available'}] },
-    { name:'Mangala Express', num:'12617', from:'Delhi', to:'Kochi', dep:'07:10', arr:'11:30', dur:'28h 20m', days:'Daily', classes:[{cls:'1A',price:4200,avail:'Available'},{cls:'2A',price:2500,avail:'Available'},{cls:'3A',price:1780,avail:'WL 10'},{cls:'SL',price:660,avail:'Available'}] },
-    { name:'Coimbatore Express', num:'12675', from:'Bangalore', to:'Coimbatore', dep:'23:00', arr:'05:30', dur:'6h 30m', days:'Daily', classes:[{cls:'2A',price:980,avail:'Available'},{cls:'3A',price:700,avail:'Available'},{cls:'SL',price:260,avail:'Available'}] },
-    { name:'Kochuveli Express', num:'16381', from:'Coimbatore', to:'Kochi', dep:'08:30', arr:'13:45', dur:'5h 15m', days:'Daily', classes:[{cls:'2A',price:850,avail:'Available'},{cls:'3A',price:600,avail:'Available'},{cls:'SL',price:225,avail:'Available'}] },
+    // ── TO OOTY (via Coimbatore + Nilgiri Mountain Railway) ──
+    { name:'Nilgiri Express',       num:'12671', from:'Chennai Egmore',        to:'Coimbatore (for Ooty)',    dep:'21:45', arr:'05:30', dur:'7h 45m', days:'Daily',   dest:'ooty',        classes:[{cls:'1A',price:1850,avail:'Available'},{cls:'2A',price:1100,avail:'Available'},{cls:'3A',price:780,avail:'WL 12'},{cls:'SL',price:290,avail:'Available'}] },
+    { name:'Kovai Express',         num:'12243', from:'Chennai Egmore',        to:'Coimbatore (for Ooty)',    dep:'06:20', arr:'12:45', dur:'6h 25m', days:'Daily',   dest:'ooty',        classes:[{cls:'2A',price:1050,avail:'Available'},{cls:'3A',price:740,avail:'Available'},{cls:'SL',price:275,avail:'RAC 5'}] },
+    { name:'Cheran Express',        num:'12673', from:'Chennai Egmore',        to:'Coimbatore (for Ooty)',    dep:'22:00', arr:'06:15', dur:'8h 15m', days:'Daily',   dest:'ooty',        classes:[{cls:'1A',price:1900,avail:'Available'},{cls:'2A',price:1120,avail:'WL 3'},{cls:'3A',price:800,avail:'Available'},{cls:'SL',price:300,avail:'Available'}] },
+    { name:'Nilgiri Mountain Rly',  num:'56136', from:'Mettupalayam',          to:'Ooty (Direct)',            dep:'07:10', arr:'12:00', dur:'4h 50m', days:'Daily',   dest:'ooty',        classes:[{cls:'FC',price:450,avail:'Available'},{cls:'2S',price:180,avail:'Available'}] },
+    { name:'Coimbatore Express',    num:'12675', from:'Bangalore City',        to:'Coimbatore (for Ooty)',    dep:'23:00', arr:'05:30', dur:'6h 30m', days:'Daily',   dest:'ooty',        classes:[{cls:'2A',price:980,avail:'Available'},{cls:'3A',price:700,avail:'Available'},{cls:'SL',price:260,avail:'Available'}] },
+
+    // ── TO KODAIKANAL (via Kodai Road station) ──
+    { name:'Pandian Express',       num:'12637', from:'Chennai Egmore',        to:'Madurai (for Kodaikanal)', dep:'21:00', arr:'05:30', dur:'8h 30m', days:'Daily',   dest:'kodaikanal',  classes:[{cls:'1A',price:2100,avail:'Available'},{cls:'2A',price:1250,avail:'Available'},{cls:'3A',price:890,avail:'Available'},{cls:'SL',price:330,avail:'WL 8'}] },
+    { name:'Vaigai Express',        num:'12635', from:'Chennai Egmore',        to:'Madurai (for Kodaikanal)', dep:'12:15', arr:'20:30', dur:'8h 15m', days:'Daily',   dest:'kodaikanal',  classes:[{cls:'2A',price:1200,avail:'Available'},{cls:'3A',price:850,avail:'Available'},{cls:'SL',price:315,avail:'Available'}] },
+    { name:'Kodai Road Express',    num:'16723', from:'Bangalore City',        to:'Kodai Road (for Kodaikanal)',dep:'20:30',arr:'06:45', dur:'10h 15m',days:'Daily',  dest:'kodaikanal',  classes:[{cls:'2A',price:1100,avail:'Available'},{cls:'3A',price:780,avail:'WL 4'},{cls:'SL',price:290,avail:'Available'}] },
+
+    // ── TO MUNNAR / ALLEPPEY / KOCHI (Kerala) ──
+    { name:'Island Express',        num:'16331', from:'Chennai Central',       to:'Kochi (for Munnar/Alleppey)',dep:'19:30',arr:'09:45', dur:'14h 15m',days:'Daily',  dest:'munnar',      classes:[{cls:'1A',price:2800,avail:'Available'},{cls:'2A',price:1650,avail:'Available'},{cls:'3A',price:1180,avail:'WL 5'},{cls:'SL',price:440,avail:'Available'}] },
+    { name:'Sabari Express',        num:'16343', from:'Chennai Central',       to:'Kochi (for Munnar/Alleppey)',dep:'15:00',arr:'05:30', dur:'14h 30m',days:'Daily',  dest:'alleppey',    classes:[{cls:'2A',price:1600,avail:'Available'},{cls:'3A',price:1140,avail:'Available'},{cls:'SL',price:425,avail:'Available'}] },
+    { name:'Kochuveli Express',     num:'16381', from:'Coimbatore',            to:'Kochi (for Munnar/Alleppey)',dep:'08:30',arr:'13:45', dur:'5h 15m', days:'Daily',  dest:'munnar',      classes:[{cls:'2A',price:850,avail:'Available'},{cls:'3A',price:600,avail:'Available'},{cls:'SL',price:225,avail:'Available'}] },
+    { name:'Mangala Express',       num:'12617', from:'Delhi',                 to:'Kochi (for Munnar/Alleppey)',dep:'07:10',arr:'11:30', dur:'28h 20m',days:'Daily',  dest:'alleppey',    classes:[{cls:'1A',price:4200,avail:'Available'},{cls:'2A',price:2500,avail:'Available'},{cls:'3A',price:1780,avail:'WL 10'},{cls:'SL',price:660,avail:'Available'}] },
+
+    // ── TO RAMESWARAM ──
+    { name:'Rameswaram Express',    num:'16101', from:'Chennai Egmore',        to:'Rameswaram (Direct)',      dep:'20:40', arr:'10:30', dur:'13h 50m',days:'Daily',   dest:'rameswaram',  classes:[{cls:'2A',price:1450,avail:'Available'},{cls:'3A',price:1020,avail:'Available'},{cls:'SL',price:380,avail:'WL 6'}] },
+    { name:'Sethu Express',         num:'16733', from:'Bangalore City',        to:'Rameswaram (Direct)',      dep:'19:30', arr:'12:00', dur:'16h 30m',days:'Daily',   dest:'rameswaram',  classes:[{cls:'2A',price:1650,avail:'Available'},{cls:'3A',price:1160,avail:'Available'},{cls:'SL',price:430,avail:'Available'}] },
+
+    // ── TO KANYAKUMARI ──
+    { name:'Kanyakumari Express',   num:'16381', from:'Chennai Central',       to:'Kanyakumari (Direct)',     dep:'17:15', arr:'08:30', dur:'15h 15m',days:'Daily',   dest:'kanyakumari', classes:[{cls:'1A',price:2600,avail:'Available'},{cls:'2A',price:1550,avail:'Available'},{cls:'3A',price:1100,avail:'Available'},{cls:'SL',price:410,avail:'Available'}] },
+    { name:'Trivandrum Mail',       num:'12623', from:'Chennai Central',       to:'Trivandrum (for Kanyakumari)',dep:'19:00',arr:'07:30',dur:'12h 30m',days:'Daily',  dest:'kanyakumari', classes:[{cls:'1A',price:2400,avail:'Available'},{cls:'2A',price:1420,avail:'Available'},{cls:'3A',price:1010,avail:'WL 3'},{cls:'SL',price:375,avail:'Available'}] },
+
+    // ── TO MANALI (via Chandigarh/Pathankot) ──
+    { name:'Rajdhani Express',      num:'12431', from:'Delhi',                 to:'Chandigarh (for Manali)',  dep:'17:00', arr:'20:30', dur:'3h 30m', days:'Daily',   dest:'manali',      classes:[{cls:'1A',price:2200,avail:'Available'},{cls:'2A',price:1300,avail:'Available'},{cls:'3A',price:950,avail:'WL 2'}] },
+    { name:'Shatabdi Express',      num:'12011', from:'Delhi',                 to:'Chandigarh (for Manali)',  dep:'07:20', arr:'10:35', dur:'3h 15m', days:'Daily',   dest:'manali',      classes:[{cls:'CC',price:890,avail:'Available'},{cls:'EC',price:1650,avail:'Available'}] },
+    { name:'Himachal Express',      num:'14553', from:'Delhi',                 to:'Pathankot (for Manali)',   dep:'21:30', arr:'07:45', dur:'10h 15m',days:'Daily',   dest:'manali',      classes:[{cls:'2A',price:1350,avail:'Available'},{cls:'3A',price:960,avail:'Available'},{cls:'SL',price:355,avail:'Available'}] },
+
+    // ── TO SHIMLA (via Kalka + Toy Train) ──
+    { name:'Kalka Mail',            num:'12311', from:'Delhi',                 to:'Kalka (for Shimla)',       dep:'22:00', arr:'05:30', dur:'7h 30m', days:'Daily',   dest:'shimla',      classes:[{cls:'1A',price:2100,avail:'Available'},{cls:'2A',price:1250,avail:'Available'},{cls:'3A',price:890,avail:'Available'},{cls:'SL',price:330,avail:'Available'}] },
+    { name:'Himalayan Queen',       num:'52455', from:'Kalka',                 to:'Shimla (Direct Toy Train)',dep:'06:00', arr:'10:30', dur:'4h 30m', days:'Daily',   dest:'shimla',      classes:[{cls:'FC',price:450,avail:'Available'},{cls:'2S',price:180,avail:'Available'}] },
+    { name:'Shivalik Express',      num:'52457', from:'Kalka',                 to:'Shimla (Direct Toy Train)',dep:'10:30', arr:'15:00', dur:'4h 30m', days:'Daily',   dest:'shimla',      classes:[{cls:'FC',price:480,avail:'Available'},{cls:'2S',price:195,avail:'Available'}] },
+
+    // ── TO VAISHNO DEVI (via Jammu Tawi) ──
+    { name:'Jammu Tawi Express',    num:'12445', from:'Delhi',                 to:'Jammu Tawi (for Vaishno Devi)',dep:'20:30',arr:'06:45',dur:'10h 15m',days:'Daily', dest:'vaishno',     classes:[{cls:'1A',price:2600,avail:'Available'},{cls:'2A',price:1550,avail:'Available'},{cls:'3A',price:1100,avail:'Available'},{cls:'SL',price:410,avail:'WL 15'}] },
+    { name:'Uttar Sampark Kranti',  num:'12471', from:'Delhi',                 to:'Jammu Tawi (for Vaishno Devi)',dep:'16:45',arr:'03:30',dur:'10h 45m',days:'Daily', dest:'vaishno',     classes:[{cls:'2A',price:1480,avail:'Available'},{cls:'3A',price:1050,avail:'Available'},{cls:'SL',price:390,avail:'Available'}] },
+    { name:'Swaraj Express',        num:'12473', from:'Mumbai CST',            to:'Jammu Tawi (for Vaishno Devi)',dep:'11:05',arr:'16:30',dur:'29h 25m',days:'Daily', dest:'vaishno',     classes:[{cls:'1A',price:3800,avail:'Available'},{cls:'2A',price:2250,avail:'Available'},{cls:'3A',price:1600,avail:'WL 8'},{cls:'SL',price:595,avail:'Available'}] },
+
+    // ── TO DHARAMSHALA (via Pathankot) ──
+    { name:'Swaraj Express',        num:'12471', from:'Delhi',                 to:'Pathankot (for Dharamshala)',dep:'19:00',arr:'05:30', dur:'10h 30m',days:'Daily',  dest:'dharamshala', classes:[{cls:'2A',price:1400,avail:'Available'},{cls:'3A',price:990,avail:'WL 6'},{cls:'SL',price:370,avail:'Available'}] },
+
+    // ── TO WAYANAD (via Kozhikode) ──
+    { name:'Malabar Express',       num:'16629', from:'Chennai Central',       to:'Kozhikode (for Wayanad)',  dep:'18:00', arr:'07:30', dur:'13h 30m',days:'Daily',   dest:'wayanad',     classes:[{cls:'2A',price:1580,avail:'Available'},{cls:'3A',price:1120,avail:'Available'},{cls:'SL',price:415,avail:'Available'}] },
+
+    // ── TO PONDICHERRY ──
+    { name:'Pondicherry Express',   num:'16115', from:'Chennai Egmore',        to:'Pondicherry (Direct)',     dep:'06:10', arr:'09:00', dur:'2h 50m', days:'Daily',   dest:'pondicherry', classes:[{cls:'2A',price:480,avail:'Available'},{cls:'3A',price:340,avail:'Available'},{cls:'SL',price:125,avail:'Available'}] },
+    { name:'Puducherry Express',    num:'16117', from:'Chennai Egmore',        to:'Pondicherry (Direct)',     dep:'14:30', arr:'17:20', dur:'2h 50m', days:'Daily',   dest:'pondicherry', classes:[{cls:'2A',price:480,avail:'Available'},{cls:'3A',price:340,avail:'Available'},{cls:'SL',price:125,avail:'WL 3'}] },
   ];
+
+  function quickSearch(dest) {
+    document.querySelectorAll('.dest-quick-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    showLoading();
+    setTimeout(() => {
+      const flightResults = flightDB.filter(f => f.dest === dest);
+      const trainResults  = trainDB.filter(t => t.dest === dest);
+      if (currentMode === 'flight') {
+        allResults = flightResults.length ? flightResults : flightDB.slice(0,6);
+      } else {
+        allResults = trainResults.length ? trainResults : trainDB.slice(0,6);
+      }
+      const destNames = { ooty:'Ooty',kodaikanal:'Kodaikanal',munnar:'Munnar',alleppey:'Alleppey',rameswaram:'Rameswaram',kanyakumari:'Kanyakumari',manali:'Manali',shimla:'Shimla',gulmarg:'Gulmarg',vaishno:'Vaishno Devi',dharamshala:'Dharamshala',wayanad:'Wayanad',pondicherry:'Pondicherry',thekkady:'Thekkady' };
+      const name = destNames[dest] || dest;
+      document.getElementById('resultsSection').style.display = 'block';
+      document.getElementById('loadingSpinner').style.display = 'none';
+      document.getElementById('resultsTitle').textContent = (currentMode==='flight'?'✈️ Flights':'🚂 Trains') + ' to ' + name;
+      document.getElementById('resultsCount').textContent = allResults.length + ' options found';
+      renderResults(allResults);
+    }, 900);
+  }
 
   function searchFlights() {
     const from = document.getElementById('flightFrom').value.trim();
