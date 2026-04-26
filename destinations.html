@@ -614,41 +614,43 @@
     </div>
   </footer>
 
+
   <script src="js/main.js"></script>
   <script src="js/chatbot.js"></script>
   <script>
+  // OpenStreetMap coords + YouTube search terms per destination
   const destMedia = {
-    'ooty':         { q:'Ooty+Tamil+Nadu+India',           yt:'Ooty hill station travel guide' },
-    'kodaikanal':   { q:'Kodaikanal+Tamil+Nadu+India',     yt:'Kodaikanal travel guide' },
-    'yercaud':      { q:'Yercaud+Salem+Tamil+Nadu+India',  yt:'Yercaud hill station tour' },
-    'valparai':     { q:'Valparai+Coimbatore+India',       yt:'Valparai tea estate tour' },
-    'mudumalai':    { q:'Mudumalai+National+Park+India',   yt:'Mudumalai national park safari' },
-    'hogenakkal':   { q:'Hogenakkal+Falls+India',          yt:'Hogenakkal falls boat ride' },
-    'rameswaram':   { q:'Rameswaram+Tamil+Nadu+India',     yt:'Rameswaram temple Pamban bridge' },
-    'kanyakumari':  { q:'Kanyakumari+Tamil+Nadu+India',    yt:'Kanyakumari sunrise sunset' },
-    'marina':       { q:'Marina+Beach+Chennai+India',      yt:'Marina beach Chennai tour' },
-    'madurai':      { q:'Meenakshi+Temple+Madurai+India',  yt:'Madurai Meenakshi temple tour' },
-    'mahabalipuram':{ q:'Mahabalipuram+Tamil+Nadu+India',  yt:'Mahabalipuram shore temple' },
-    'yelagiri':     { q:'Yelagiri+Hills+Tamil+Nadu+India', yt:'Yelagiri hills trekking' },
-    'thanjavur':    { q:'Brihadeeswarar+Temple+Thanjavur', yt:'Thanjavur Brihadeeswarar temple' },
-    'pondicherry':  { q:'Pondicherry+India',               yt:'Pondicherry French town beach' },
-    'alleppey':     { q:'Alleppey+Kerala+India',           yt:'Alleppey backwaters houseboat Kerala' },
-    'munnar':       { q:'Munnar+Kerala+India',             yt:'Munnar tea plantation Kerala' },
-    'thekkady':     { q:'Thekkady+Kerala+India',           yt:'Thekkady Periyar wildlife safari' },
-    'kovalam':      { q:'Kovalam+Beach+Kerala+India',      yt:'Kovalam beach Kerala' },
-    'wayanad':      { q:'Wayanad+Kerala+India',            yt:'Wayanad Kerala nature tour' },
-    'fortkochi':    { q:'Fort+Kochi+Kerala+India',         yt:'Fort Kochi Chinese fishing nets' },
-    'varkala':      { q:'Varkala+Beach+Kerala+India',      yt:'Varkala cliff beach Kerala' },
-    'athirappilly': { q:'Athirappilly+Falls+Kerala+India', yt:'Athirappilly waterfalls Kerala' },
-    'patnitop':     { q:'Patnitop+Jammu+India',            yt:'Patnitop Jammu skiing trekking' },
-    'gulmarg':      { q:'Gulmarg+Kashmir+India',           yt:'Gulmarg gondola skiing Kashmir' },
-    'spiti':        { q:'Spiti+Valley+Himachal+Pradesh',   yt:'Spiti Valley Himachal Pradesh tour' },
-    'dharamshala':  { q:'Dharamshala+Himachal+Pradesh',    yt:'Dharamshala McLeod Ganj tour' },
-    'kasol':        { q:'Kasol+Himachal+Pradesh+India',    yt:'Kasol Kheerganga trek Himachal' },
-    'vaishno':      { q:'Vaishno+Devi+Jammu+India',        yt:'Vaishno Devi temple trek' },
-    'dallake':      { q:'Dal+Lake+Srinagar+India',         yt:'Dal Lake Srinagar houseboat' },
-    'manali':       { q:'Manali+Himachal+Pradesh+India',   yt:'Manali Rohtang Pass travel guide' },
-    'shimla':       { q:'Shimla+Himachal+Pradesh+India',   yt:'Shimla hill station tour' },
+    'ooty':         { lat:11.4102, lon:76.6952, z:13, title:'Ooty Hill Station Tamil Nadu' },
+    'kodaikanal':   { lat:10.2381, lon:77.4892, z:13, title:'Kodaikanal Hill Station Tamil Nadu' },
+    'yercaud':      { lat:11.7750, lon:78.2100, z:13, title:'Yercaud Salem Tamil Nadu' },
+    'valparai':     { lat:10.3270, lon:76.9550, z:13, title:'Valparai Tea Estate Tamil Nadu' },
+    'mudumalai':    { lat:11.5700, lon:76.6300, z:12, title:'Mudumalai National Park Safari' },
+    'hogenakkal':   { lat:12.1050, lon:77.7900, z:14, title:'Hogenakkal Falls Kaveri River' },
+    'rameswaram':   { lat:9.2876,  lon:79.3129, z:13, title:'Rameswaram Temple Pamban Bridge' },
+    'kanyakumari':  { lat:8.0883,  lon:77.5385, z:14, title:'Kanyakumari Sunrise Sunset India' },
+    'marina':       { lat:13.0500, lon:80.2824, z:14, title:'Marina Beach Chennai Tamil Nadu' },
+    'madurai':      { lat:9.9195,  lon:78.1193, z:14, title:'Madurai Meenakshi Temple Tour' },
+    'mahabalipuram':{ lat:12.6269, lon:80.1927, z:14, title:'Mahabalipuram Shore Temple UNESCO' },
+    'yelagiri':     { lat:12.5800, lon:78.6400, z:13, title:'Yelagiri Hills Trekking Tamil Nadu' },
+    'thanjavur':    { lat:10.7870, lon:79.1378, z:14, title:'Thanjavur Brihadeeswarar Temple' },
+    'pondicherry':  { lat:11.9416, lon:79.8083, z:13, title:'Pondicherry French Town Beach' },
+    'alleppey':     { lat:9.4981,  lon:76.3388, z:13, title:'Alleppey Backwaters Houseboat Kerala' },
+    'munnar':       { lat:10.0889, lon:77.0595, z:13, title:'Munnar Tea Plantation Kerala' },
+    'thekkady':     { lat:9.5996,  lon:77.1700, z:13, title:'Thekkady Periyar Wildlife Safari' },
+    'kovalam':      { lat:8.3988,  lon:76.9782, z:14, title:'Kovalam Beach Kerala Lighthouse' },
+    'wayanad':      { lat:11.6854, lon:76.1320, z:12, title:'Wayanad Kerala Nature Tourism' },
+    'fortkochi':    { lat:9.9658,  lon:76.2421, z:14, title:'Fort Kochi Chinese Fishing Nets Kerala' },
+    'varkala':      { lat:8.7379,  lon:76.7163, z:14, title:'Varkala Cliff Beach Kerala' },
+    'athirappilly': { lat:10.2867, lon:76.5694, z:14, title:'Athirappilly Waterfalls Kerala' },
+    'patnitop':     { lat:33.0000, lon:75.3167, z:13, title:'Patnitop Jammu Skiing Trekking' },
+    'gulmarg':      { lat:34.0500, lon:74.3800, z:13, title:'Gulmarg Gondola Skiing Kashmir' },
+    'spiti':        { lat:32.2461, lon:78.0338, z:11, title:'Spiti Valley Himachal Pradesh Tour' },
+    'dharamshala':  { lat:32.2190, lon:76.3234, z:13, title:'Dharamshala McLeod Ganj Himachal' },
+    'kasol':        { lat:32.0100, lon:77.3100, z:13, title:'Kasol Kheerganga Trek Himachal' },
+    'vaishno':      { lat:33.0300, lon:74.9500, z:13, title:'Vaishno Devi Temple Trek Jammu' },
+    'dallake':      { lat:34.0837, lon:74.7973, z:14, title:'Dal Lake Srinagar Houseboat Kashmir' },
+    'manali':       { lat:32.2396, lon:77.1887, z:13, title:'Manali Rohtang Pass Himachal Pradesh' },
+    'shimla':       { lat:31.1048, lon:77.1734, z:13, title:'Shimla Hill Station Himachal Pradesh' },
   };
 
   document.querySelectorAll('.dest-card').forEach(card => {
@@ -703,29 +705,42 @@
     toggleBtn.onclick = () => toggleMedia(uid, toggleBtn);
     card.querySelector('.dest-info').appendChild(toggleBtn);
 
+    // OpenStreetMap embed — works on all static sites, no API key needed
+    const bbox = (d.lon-0.05) + '%2C' + (d.lat-0.05) + '%2C' + (d.lon+0.05) + '%2C' + (d.lat+0.05);
+    const mapUrl = 'https://www.openstreetmap.org/export/embed.html?bbox=' + bbox + '&layer=mapnik&marker=' + d.lat + '%2C' + d.lon;
+    const mapLink = 'https://www.openstreetmap.org/?mlat=' + d.lat + '&mlon=' + d.lon + '#map=' + d.z + '/' + d.lat + '/' + d.lon;
+
+    // YouTube search link — opens YouTube with destination-specific results
+    const ytLink = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(d.title);
+
     // Create media panel
     const panel = document.createElement('div');
     panel.className = 'dest-media';
     panel.id = uid;
-    panel.innerHTML = `
-      <div class="media-tabs">
-        <div class="media-tab active" onclick="switchTab('${uid}','map',this)"><i class="fas fa-map-marked-alt"></i> Map</div>
-        <div class="media-tab" onclick="switchTab('${uid}','video',this)"><i class="fab fa-youtube"></i> Video</div>
-      </div>
-      <div class="media-panel active" id="${uid}_map">
-        <div class="media-map">
-          <iframe src="https://maps.google.com/maps?q=${d.q}&output=embed&z=12" allowfullscreen loading="lazy"></iframe>
-        </div>
-      </div>
-      <div class="media-panel" id="${uid}_video">
-        <div class="media-video">
-          <iframe src="https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(d.yt)}" allowfullscreen></iframe>
-        </div>
-      </div>
-      <div class="dest-actions">
-        <a href="booking.html" class="btn-primary btn-sm" style="flex:2;justify-content:center"><i class="fas fa-calendar-check"></i> Book Now</a>
-        <a href="destination-detail.html?dest=${key}" class="btn-outline btn-sm" style="flex:1;justify-content:center"><i class="fas fa-info-circle"></i> Details</a>
-      </div>`;
+    panel.innerHTML =
+      '<div class="media-tabs">' +
+        '<div class="media-tab active" onclick="switchTab(\'' + uid + '\',\'map\',this)"><i class="fas fa-map-marked-alt"></i> Map</div>' +
+        '<div class="media-tab" onclick="switchTab(\'' + uid + '\',\'video\',this)"><i class="fab fa-youtube"></i> Video</div>' +
+      '</div>' +
+      '<div class="media-panel active" id="' + uid + '_map">' +
+        '<iframe src="' + mapUrl + '" style="width:100%;height:200px;border:none;display:block" allowfullscreen loading="lazy"></iframe>' +
+        '<div style="text-align:right;padding:4px 10px;background:#f9fafb;border-top:1px solid #e5e7eb">' +
+          '<a href="' + mapLink + '" target="_blank" style="font-size:0.72rem;color:#16a34a;font-weight:600">📍 View larger map ↗</a>' +
+        '</div>' +
+      '</div>' +
+      '<div class="media-panel" id="' + uid + '_video" style="background:#0f0f0f;padding:20px;text-align:center">' +
+        '<div style="width:56px;height:56px;background:#ff0000;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.5rem;color:#fff">▶</div>' +
+        '<div style="color:#fff;font-weight:700;font-size:0.9rem;margin-bottom:6px">' + d.title + '</div>' +
+        '<div style="color:#aaa;font-size:0.75rem;margin-bottom:16px">Click below to watch travel videos</div>' +
+        '<a href="' + ytLink + '" target="_blank" style="background:#ff0000;color:#fff;padding:10px 22px;border-radius:6px;font-weight:700;font-size:0.85rem;text-decoration:none;display:inline-flex;align-items:center;gap:8px">' +
+          '<svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>' +
+          'Watch on YouTube' +
+        '</a>' +
+      '</div>' +
+      '<div class="dest-actions">' +
+        '<a href="booking.html" class="btn-primary btn-sm" style="flex:2;justify-content:center"><i class="fas fa-calendar-check"></i> Book Now</a>' +
+        '<a href="destination-detail.html?dest=' + key + '" class="btn-outline btn-sm" style="flex:1;justify-content:center"><i class="fas fa-info-circle"></i> Details</a>' +
+      '</div>';
     card.appendChild(panel);
   });
 
