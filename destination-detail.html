@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Destination Details - GreenPass</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    .detail-hero{min-height:420px;display:flex;align-items:flex-end;padding:48px 32px;position:relative;overflow:hidden}
+    .detail-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.2) 100%)}
+    .detail-hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#064e3b,#047857);z-index:0}
+    .detail-hero-content{position:relative;z-index:1;max-width:1200px;margin:0 auto;width:100%;color:#fff}
+    .detail-hero-content h1{font-size:2.8rem;font-weight:900;margin-bottom:10px;letter-spacing:-1px}
+    .detail-hero-content p{font-size:1.05rem;opacity:0.85;margin-bottom:20px}
+    .detail-badges{display:flex;gap:10px;flex-wrap:wrap}
+    .detail-badge{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);padding:6px 16px;border-radius:20px;font-size:0.82rem;font-weight:600;backdrop-filter:blur(8px)}
+    .detail-badge.green{background:rgba(22,163,74,0.8);border-color:rgba(22,163,74,0.5)}
+    .detail-main{max-width:1200px;margin:0 auto;padding:60px 32px;display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:start}
+    .detail-content{}
+    .detail-sidebar{position:sticky;top:90px}
+    .detail-section{margin-bottom:48px}
+    .detail-section h2{font-size:1.4rem;font-weight:900;margin-bottom:20px;color:var(--dark);display:flex;align-items:center;gap:10px}
+    .detail-section h2 .fas{color:var(--green)}
+    .detail-section p{color:var(--gray);line-height:1.8;font-size:0.95rem}
+    .highlights-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
+    .highlight-item{background:var(--green-50);border:1px solid var(--green-light);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:10px;font-size:0.88rem;font-weight:600;color:var(--dark)}
+    .highlight-item .fas{color:var(--green);font-size:1rem}
+    .video-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+    .video-wrap{border-radius:14px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:16/9}
+    .video-wrap iframe{width:100%;height:100%;border:none}
+    .video-label{font-size:0.82rem;font-weight:600;color:var(--gray);margin-top:8px;text-align:center}
+    .map-wrap{border-radius:14px;overflow:hidden;box-shadow:var(--shadow);height:380px}
+    .map-wrap iframe{width:100%;height:100%;border:none}
+    .hotels-grid{display:grid;grid-template-columns:repeat(1,1fr);gap:18px}
+    .hotel-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;display:flex;gap:18px;align-items:flex-start;box-shadow:var(--shadow);transition:all 0.2s}
+    .hotel-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+    .hotel-img{width:90px;height:90px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:2rem}
+    .hotel-info{flex:1}
+    .hotel-info h4{font-weight:800;margin-bottom:4px;font-size:1rem}
+    .hotel-info .stars{color:#f59e0b;font-size:0.82rem;margin-bottom:6px}
+    .hotel-info p{color:var(--gray);font-size:0.82rem;line-height:1.5;margin-bottom:8px}
+    .hotel-meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .hotel-price{font-weight:800;color:var(--green);font-size:1rem}
+    .hotel-tag{background:var(--green-50);border:1px solid var(--green-light);color:var(--green);padding:3px 10px;border-radius:20px;font-size:0.72rem;font-weight:600}
+    .book-sidebar-card{background:#fff;border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow-lg);border:1px solid var(--border);margin-bottom:18px}
+    .book-sidebar-card h3{font-weight:800;margin-bottom:16px;font-size:1.1rem}
+    .price-big{font-size:2rem;font-weight:900;color:var(--green);margin-bottom:4px}
+    .price-big span{font-size:0.9rem;font-weight:500;color:var(--gray)}
+    .iot-live{background:linear-gradient(135deg,#064e3b,#047857);border-radius:var(--radius-lg);padding:20px;color:#fff;margin-bottom:18px}
+    .iot-live h4{font-weight:700;margin-bottom:14px;font-size:0.95rem}
+    .iot-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);font-size:0.85rem}
+    .iot-row:last-child{border-bottom:none}
+    .iot-val{font-weight:700;color:#6ee7b7}
+    .activities-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .act-tag{background:var(--light);border:1px solid var(--border);padding:6px 14px;border-radius:20px;font-size:0.82rem;font-weight:600;color:var(--dark)}
+    @media(max-width:900px){.detail-main{grid-template-columns:1fr}.detail-sidebar{position:static}.video-grid{grid-template-columns:1fr}.highlights-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fas fa-mountain"></i>
+        <div><span class="logo-title">GreenPass</span><span class="logo-sub">Tourist Management</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="destinations.html" class="active">Destinations</a></li>
+        <li><a href="booking.html">Book Now</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-buttons">
+        <a href="login.html" class="btn-outline">Login</a>
+        <a href="signup.html" class="btn-primary">Sign Up</a>
+      </div>
+      <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+    </div>
+  </nav>
+
+  <!-- Dynamic Hero -->
+  <div class="detail-hero" id="detailHero">
+    <div class="detail-hero-bg" id="heroBg"></div>
+    <div class="detail-hero-overlay"></div>
+    <div class="detail-hero-content">
+      <div style="margin-bottom:12px"><a href="destinations.html" style="color:rgba(255,255,255,0.7);font-size:0.85rem"><i class="fas fa-arrow-left"></i> Back to Destinations</a></div>
+      <h1 id="destTitle">Destination</h1>
+      <p id="destLocation"><i class="fas fa-map-marker-alt"></i> Location</p>
+      <div class="detail-badges">
+        <div class="detail-badge green" id="destState">State</div>
+        <div class="detail-badge" id="destRating"><i class="fas fa-star" style="color:#fbbf24"></i> Rating</div>
+        <div class="detail-badge" id="destPrice"><i class="fas fa-rupee-sign"></i> Price</div>
+        <div class="detail-badge" id="destEco"><i class="fas fa-leaf"></i> Eco-Safe</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-main">
+    <div class="detail-content">
+
+      <!-- About -->
+      <div class="detail-section">
+        <h2><i class="fas fa-info-circle"></i> About This Destination</h2>
+        <p id="destAbout">Loading destination details...</p>
+        <div class="highlights-grid" id="destHighlights"></div>
+      </div>
+
+      <!-- Videos -->
+      <div class="detail-section">
+        <h2><i class="fas fa-play-circle"></i> Destination Videos</h2>
+        <div class="video-grid" id="videoGrid"></div>
+      </div>
+
+      <!-- Map -->
+      <div class="detail-section">
+        <h2><i class="fas fa-map-marked-alt"></i> Location Map</h2>
+        <div class="map-wrap">
+          <iframe id="destMap" src="" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+
+      <!-- Hotels -->
+      <div class="detail-section">
+        <h2><i class="fas fa-hotel"></i> Best Hotels & Stays</h2>
+        <div class="hotels-grid" id="hotelsGrid"></div>
+      </div>
+
+      <!-- Activities -->
+      <div class="detail-section">
+        <h2><i class="fas fa-hiking"></i> Things To Do</h2>
+        <div class="activities-list" id="activitiesList"></div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="detail-sidebar">
+      <div class="book-sidebar-card">
+        <h3>Book This Trip</h3>
+        <div class="price-big" id="sidePrice">?3,500 <span>/ per head</span></div>
+        <div style="color:var(--gray);font-size:0.82rem;margin-bottom:20px">Includes accommodation + activities</div>
+        <a href="booking.html" class="btn-primary btn-full" style="margin-bottom:12px"><i class="fas fa-calendar-check"></i> Book Now</a>
+        <a href="contact.html" class="btn-outline btn-full"><i class="fas fa-headset"></i> Ask a Question</a>
+      </div>
+
+      <div class="iot-live">
+        <h4><i class="fas fa-satellite-dish"></i> Live IoT Status</h4>
+        <div class="iot-row"><span>Temperature</span><span class="iot-val" id="iotTemp">28°C</span></div>
+        <div class="iot-row"><span>Air Quality</span><span class="iot-val" id="iotAir">Good</span></div>
+        <div class="iot-row"><span>Crowd Level</span><span class="iot-val" id="iotCrowd">Moderate</span></div>
+        <div class="iot-row"><span>Best Time</span><span class="iot-val" id="iotTime">Oct–Mar</span></div>
+      </div>
+
+      <div class="book-sidebar-card">
+        <h3>Quick Info</h3>
+        <div class="iot-row" style="border-bottom:1px solid var(--border);padding:8px 0"><span style="color:var(--gray);font-size:0.85rem">Duration</span><span id="infoDuration" style="font-weight:700;font-size:0.85rem">2-3 Days</span></div>
+        <div class="iot-row" style="border-bottom:1px solid var(--border);padding:8px 0"><span style="color:var(--gray);font-size:0.85rem">Best Season</span><span id="infoSeason" style="font-weight:700;font-size:0.85rem">Oct–Mar</span></div>
+        <div class="iot-row" style="padding:8px 0"><span style="color:var(--gray);font-size:0.85rem">Nearest Airport</span><span id="infoAirport" style="font-weight:700;font-size:0.85rem">—</span></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom">
+      <p>© 2026 GreenPass Tourist Management System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script>
+  const destData = {
+    'ooty': {
+      title:'Ooty (Udhagamandalam)', location:'Nilgiris, Tamil Nadu', state:'Tamil Nadu',
+      rating:'4.8', price:'1,800', eco:'Eco-Safe',
+      bg:'linear-gradient(135deg,#064e3b,#059669)',
+      about:'Ooty, the Queen of Hill Stations, is nestled in the Nilgiri Hills of Tamil Nadu. Famous for its lush tea gardens, the iconic Nilgiri Mountain Railway (a UNESCO World Heritage Site), Ooty Lake, and the Government Botanical Garden. The cool climate and scenic beauty make it one of India\'s most beloved hill stations.',
+      highlights:['?? Tea Garden Tours','?? Nilgiri Mountain Railway','?? Botanical Garden','?? Ooty Lake Boating','??? Doddabetta Peak','?? Scenic Viewpoints'],
+      videos:[{id:'kFJBFnFJFJA',label:'Ooty Travel Guide'},{id:'Wd_Yd_Yd_Yd',label:'Nilgiri Mountain Railway'}],
+      mapSrc:'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62374.84!2d76.6952!3d11.4102!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba8f7e0e0e0e0e1%3A0x1!2sOoty%2C+Tamil+Nadu!5e0!3m2!1sen!2sin!4v1',
+      hotels:[
+        {emoji:'??',name:'Savoy Hotel Ooty',stars:'?????',desc:'Heritage colonial hotel with stunning mountain views, lush gardens, and world-class amenities.',price:'?4,500/night',tags:['Heritage','Pool','Spa']},
+        {emoji:'??',name:'Sterling Ooty Fern Hill',stars:'????',desc:'Luxury resort set in a 100-year-old palace with panoramic Nilgiri views and modern comforts.',price:'?3,200/night',tags:['Luxury','View','Restaurant']},
+        {emoji:'??',name:'YWCA Anandagiri',stars:'???',desc:'Budget-friendly heritage property with beautiful gardens, ideal for families and backpackers.',price:'?1,200/night',tags:['Budget','Garden','Family']},
+        {emoji:'?',name:'Jungle Hut Masinagudi',stars:'????',desc:'Eco-resort near Mudumalai with wildlife safaris, nature walks, and authentic jungle experience.',price:'?2,800/night',tags:['Eco','Wildlife','Adventure']}
+      ],
+      activities:['Tea Factory Visit','Nilgiri Mountain Railway Ride','Botanical Garden Walk','Ooty Lake Boating','Doddabetta Peak Trek','Rose Garden Visit','Emerald Lake','Pykara Falls','Horse Riding','Cycling'],
+      duration:'3-4 Days', season:'Oct–Jun', airport:'Coimbatore (88 km)',
+      iotTemp:'18°C', iotAir:'Excellent', iotCrowd:'Moderate', iotTime:'Oct–Jun'
+    },
+    'munnar': {
+      title:'Munnar', location:'Idukki, Kerala', state:'Kerala',
+      rating:'4.8', price:'2,800', eco:'Eco-Safe',
+      bg:'linear-gradient(135deg,#14532d,#22c55e)',
+      about:'Munnar is a breathtaking hill station in Kerala\'s Western Ghats, famous for its endless rolling tea plantations, misty mountains, and cool climate. Home to the Eravikulam National Park where the endangered Nilgiri Tahr roams freely, and the stunning Anamudi peak — the highest in South India.',
+      highlights:['?? Tea Plantation Tours','?? Eravikulam National Park','??? Anamudi Peak','?? Attukad Waterfalls','?? Neelakurinji Flowers','?? Spice Gardens'],
+      videos:[{id:'kFJBFnFJFJA',label:'Munnar Travel Guide'},{id:'Wd_Yd_Yd_Yd',label:'Tea Plantation Tour'}],
+      mapSrc:'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62374.84!2d77.0595!3d10.0889!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b0799e0e0e0e0e1%3A0x1!2sMunnar%2C+Kerala!5e0!3m2!1sen!2sin!4v1',
+      hotels:[
+        {emoji:'??',name:'Windermere Estate',stars:'?????',desc:'Luxury plantation bungalow with private tea estate, infinity pool, and stunning valley views.',price:'?6,500/night',tags:['Luxury','Pool','Estate']},
+        {emoji:'??',name:'Spice Tree Munnar',stars:'????',desc:'Award-winning eco-resort with treehouse suites, organic farm, and panoramic mountain views.',price:'?4,200/night',tags:['Eco','Treehouse','Organic']},
+        {emoji:'??',name:'Tea Valley Resort',stars:'???',desc:'Comfortable resort surrounded by tea gardens with guided plantation walks and local cuisine.',price:'?2,200/night',tags:['Budget','Tea Garden','Family']},
+        {emoji:'?',name:'Jungle Retreat',stars:'???',desc:'Adventure camp with trekking, rock climbing, and wildlife spotting in the Western Ghats.',price:'?1,800/night',tags:['Adventure','Trek','Camp']}
+      ],
+      activities:['Tea Plantation Walk','Eravikulam National Park Safari','Anamudi Trek','Attukad Waterfall Visit','Spice Garden Tour','Mattupetty Dam Boating','Echo Point','Top Station Viewpoint','Cycling','Bird Watching'],
+      duration:'3-4 Days', season:'Sep–May', airport:'Cochin (130 km)',
+      iotTemp:'16°C', iotAir:'Excellent', iotCrowd:'Low', iotTime:'Sep–May'
+    },
+    'alleppey': {
+      title:'Alleppey Backwaters', location:'Alappuzha, Kerala', state:'Kerala',
+      rating:'4.9', price:'3,500', eco:'Eco-Safe',
+      bg:'linear-gradient(135deg,#064e3b,#059669)',
+      about:'Alleppey, known as the Venice of the East, is famous for its enchanting network of backwater canals, lagoons, and lakes. The iconic houseboat experience on the Kerala backwaters is a must-do — gliding through serene waterways lined with coconut palms, paddy fields, and traditional villages.',
+      highlights:['?? Houseboat Stay','?? Backwater Canals','?? Paddy Field Views','?? Fresh Seafood','?? Kathakali Shows','??? Alleppey Beach'],
+      videos:[{id:'kFJBFnFJFJA',label:'Kerala Backwaters Guide'},{id:'Wd_Yd_Yd_Yd',label:'Houseboat Experience'}],
+      mapSrc:'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62374.84!2d76.3388!3d9.4981!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b08900e0e0e0e01%3A0x1!2sAlleppey%2C+Kerala!5e0!3m2!1sen!2sin!4v1',
+      hotels:[
+        {emoji:'??',name:'Punnamada Lake Resort',stars:'?????',desc:'Luxury lakeside resort with private houseboat, infinity pool, and authentic Kerala cuisine.',price:'?8,000/night',tags:['Luxury','Houseboat','Lake']},
+        {emoji:'??',name:'Ramada Alleppey',stars:'????',desc:'Modern hotel with backwater views, Ayurvedic spa, and easy access to houseboat jetties.',price:'?4,500/night',tags:['Modern','Spa','Backwater']},
+        {emoji:'??',name:'Premium Houseboat Stay',stars:'????',desc:'Traditional Kerala kettuvallam houseboat with AC bedrooms, chef, and guided canal tours.',price:'?5,500/night',tags:['Houseboat','Traditional','Chef']},
+        {emoji:'??',name:'Palmy Lake Resort',stars:'???',desc:'Budget-friendly resort with garden, backwater access, and authentic Kerala home-cooked meals.',price:'?2,000/night',tags:['Budget','Garden','Authentic']}
+      ],
+      activities:['Houseboat Cruise','Canoe Ride','Village Walk','Coir Making Workshop','Toddy Tasting','Alleppey Beach Visit','Krishnapuram Palace','Marari Beach','Fishing','Sunset Cruise'],
+      duration:'2-3 Days', season:'Oct–Mar', airport:'Cochin (85 km)',
+      iotTemp:'30°C', iotAir:'Good', iotCrowd:'Moderate', iotTime:'Oct–Mar'
+    },
+    'rameswaram': {
+      title:'Rameswaram', location:'Ramanathapuram, Tamil Nadu', state:'Tamil Nadu',
+      rating:'4.8', price:'3,500', eco:'Eco-Safe',
+      bg:'linear-gradient(135deg,#4a1d96,#7c3aed)',
+      about:'Rameswaram is a sacred island city in Tamil Nadu, one of the Char Dham pilgrimage sites. Famous for the magnificent Ramanathaswamy Temple with its 1,212 ornate pillars, the iconic Pamban Bridge — India\'s first sea bridge, pristine beaches, and the mythological Adam\'s Bridge (Ram Setu).',
+      highlights:['?? Ramanathaswamy Temple','?? Pamban Bridge','??? Agnitheertham Beach','?? Adam\'s Bridge','?? Dhanushkodi','?? Sunrise Views'],
+      videos:[{id:'kFJBFnFJFJA',label:'Rameswaram Travel Guide'},{id:'Wd_Yd_Yd_Yd',label:'Pamban Bridge Tour'}],
+      mapSrc:'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62374.84!2d79.3129!3d9.2876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b01b0e0e0e0e0e1%3A0x1!2sRameswaram%2C+Tamil+Nadu!5e0!3m2!1sen!2sin!4v1',
+      hotels:[
+        {emoji:'??',name:'Hotel Daiwik',stars:'????',desc:'Premium pilgrimage hotel near the temple with sea views, pure veg restaurant, and spiritual ambiance.',price:'?3,500/night',tags:['Premium','Sea View','Veg']},
+        {emoji:'??',name:'Hyatt Place Rameswaram',stars:'????',desc:'Modern hotel with rooftop pool, panoramic ocean views, and comfortable rooms for pilgrims.',price:'?4,200/night',tags:['Modern','Pool','Ocean View']},
+        {emoji:'??',name:'Hotel Tamil Nadu',stars:'???',desc:'TTDC government hotel with clean rooms, good location near temple, and affordable pricing.',price:'?1,500/night',tags:['Budget','TTDC','Temple']},
+        {emoji:'??',name:'Sea View Guest House',stars:'??',desc:'Simple beachside accommodation with direct beach access and fresh seafood meals.',price:'?800/night',tags:['Budget','Beach','Seafood']}
+      ],
+      activities:['Ramanathaswamy Temple Visit','Pamban Bridge Walk','Dhanushkodi Ghost Town','Agnitheertham Dip','Adam\'s Bridge Viewpoint','Boat Ride','Fishing Village Tour','Sunset at Beach','Temple Corridor Walk','Seashore Cycling'],
+      duration:'2-3 Days', season:'Oct–Apr', airport:'Madurai (163 km)',
+      iotTemp:'32°C', iotAir:'Good', iotCrowd:'High', iotTime:'Oct–Apr'
+    },
+    'manali': {
+      title:'Manali', location:'Kullu, Himachal Pradesh', state:'Himachal Pradesh',
+      rating:'4.8', price:'8,500', eco:'Eco-Safe',
+      bg:'linear-gradient(135deg,#7f1d1d,#ef4444)',
+      about:'Manali is a high-altitude Himalayan resort town in Himachal Pradesh, a paradise for adventure seekers and nature lovers. Famous for snow-capped peaks, the Rohtang Pass, Solang Valley, Hadimba Temple, and world-class adventure sports including skiing, paragliding, and river rafting.',
+      highlights:['??? Rohtang Pass','?? Solang Valley Skiing','?? Hadimba Temple','?? Beas River Rafting','?? Paragliding','??? Snow Activities'],
+      videos:[{id:'kFJBFnFJFJA',label:'Manali Travel Guide'},{id:'Wd_Yd_Yd_Yd',label:'Rohtang Pass Adventure'}],
+      mapSrc:'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62374.84!2d77.1887!3d32.2396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3904f0e0e0e0e0e1%3A0x1!2sManali%2C+Himachal+Pradesh!5e0!3m2!1sen!2sin!4v1',
+      hotels:[
+        {emoji:'???',name:'Span Resort & Spa',stars:'?????',desc:'Luxury riverside resort on the banks of Beas with mountain views, spa, and adventure activities.',price:'?9,500/night',tags:['Luxury','Riverside','Spa']},
+        {emoji:'??',name:'The Himalayan',stars:'????',desc:'Heritage hotel with panoramic Himalayan views, fireplace rooms, and authentic Himachali cuisine.',price:'?5,500/night',tags:['Heritage','Mountain View','Fireplace']},
+        {emoji:'??',name:'Snow Valley Resorts',stars:'???',desc:'Comfortable resort near Solang Valley with easy access to ski slopes and adventure activities.',price:'?3,200/night',tags:['Adventure','Ski Access','Family']},
+        {emoji:'?',name:'Camp Deo Tibba',stars:'???',desc:'Adventure camp with trekking, camping under stars, and authentic mountain experience.',price:'?2,500/night',tags:['Camp','Trek','Stars']}
+      ],
+      activities:['Rohtang Pass Visit','Solang Valley Skiing','Hadimba Temple','Beas River Rafting','Paragliding','Jogini Waterfall Trek','Old Manali Walk','Naggar Castle','Manikaran Hot Springs','Mountain Biking'],
+      duration:'4-5 Days', season:'Oct–Jun', airport:'Bhuntar (50 km)',
+      iotTemp:'8°C', iotAir:'Excellent', iotCrowd:'Moderate', iotTime:'Oct–Jun'
+    }
+  };
+
+  const defaultDest = destData['ooty'];
+
+  function loadDest(key) {
+    const d = destData[key] || defaultDest;
+    document.title = d.title + ' - GreenPass';
+    document.getElementById('destTitle').textContent = d.title;
+    document.getElementById('destLocation').innerHTML = '<i class="fas fa-map-marker-alt"></i> ' + d.location;
+    document.getElementById('destState').textContent = d.state;
+    document.getElementById('destRating').innerHTML = '<i class="fas fa-star" style="color:#fbbf24"></i> ' + d.rating;
+    document.getElementById('destPrice').innerHTML = '<i class="fas fa-rupee-sign"></i> ' + d.price + '/head';
+    document.getElementById('heroBg').style.background = d.bg;
+    document.getElementById('destAbout').textContent = d.about;
+    document.getElementById('sidePrice').innerHTML = '&#8377;' + d.price + ' <span>/ per head</span>';
+    document.getElementById('iotTemp').textContent = d.iotTemp;
+    document.getElementById('iotAir').textContent = d.iotAir;
+    document.getElementById('iotCrowd').textContent = d.iotCrowd;
+    document.getElementById('iotTime').textContent = d.iotTime;
+    document.getElementById('infoDuration').textContent = d.duration;
+    document.getElementById('infoSeason').textContent = d.season;
+    document.getElementById('infoAirport').textContent = d.airport;
+
+    // Highlights
+    const hg = document.getElementById('destHighlights');
+    hg.innerHTML = d.highlights.map(h => `<div class="highlight-item">${h}</div>`).join('');
+
+    // Videos - use real YouTube search embeds
+    const videoIds = {
+      'ooty':['kFJBFnFJFJA','Wd_Yd_Yd_Yd'],
+      'munnar':['kFJBFnFJFJA','Wd_Yd_Yd_Yd'],
+      'alleppey':['kFJBFnFJFJA','Wd_Yd_Yd_Yd'],
+      'rameswaram':['kFJBFnFJFJA','Wd_Yd_Yd_Yd'],
+      'manali':['kFJBFnFJFJA','Wd_Yd_Yd_Yd']
+    };
+    const vg = document.getElementById('videoGrid');
+    const labels = ['Travel Guide & Tour','Best Places to Visit'];
+    const searchTerms = [d.title + ' travel guide', d.title + ' tourist places'];
+    vg.innerHTML = searchTerms.map((term,i) => `
+      <div>
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(term)}" allowfullscreen></iframe>
+        </div>
+        <div class="video-label"><i class="fas fa-play-circle" style="color:red"></i> ${labels[i]}</div>
+      </div>`).join('');
+
+    // Map
+    document.getElementById('destMap').src = d.mapSrc;
+
+    // Hotels
+    const hotelsGrid = document.getElementById('hotelsGrid');
+    hotelsGrid.innerHTML = d.hotels.map(h => `
+      <div class="hotel-card">
+        <div class="hotel-img" style="background:var(--green-50)">${h.emoji}</div>
+        <div class="hotel-info">
+          <h4>${h.name}</h4>
+          <div class="stars">${h.stars}</div>
+          <p>${h.desc}</p>
+          <div class="hotel-meta">
+            <span class="hotel-price">${h.price}</span>
+            ${h.tags.map(t => `<span class="hotel-tag">${t}</span>`).join('')}
+            <a href="booking.html" class="btn-primary btn-sm" style="margin-left:auto">Book</a>
+          </div>
+        </div>
+      </div>`).join('');
+
+    // Activities
+    document.getElementById('activitiesList').innerHTML = d.activities.map(a => `<span class="act-tag">${a}</span>`).join('');
+  }
+
+  // Get destination from URL param
+  const params = new URLSearchParams(window.location.search);
+  const dest = params.get('dest') || 'ooty';
+  loadDest(dest);
+  </script>
+</body>
+</html>

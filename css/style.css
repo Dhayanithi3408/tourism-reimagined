@@ -332,7 +332,23 @@ ul{list-style:none}
 .tn7 { background: linear-gradient(160deg, #4a1d96 0%, #7c3aed 100%); }
 .tn8 { background: linear-gradient(160deg, #7f1d1d 0%, #f97316 100%); }
 
-/* ===== AUTH ERROR ===== */
+/* ===== KERALA CARD COLORS ===== */
+.kl1 { background: linear-gradient(160deg, #064e3b 0%, #059669 100%); }
+.kl2 { background: linear-gradient(160deg, #14532d 0%, #22c55e 100%); }
+.kl3 { background: linear-gradient(160deg, #052e16 0%, #16a34a 100%); }
+.kl4 { background: linear-gradient(160deg, #0c4a6e 0%, #38bdf8 100%); }
+.kl5 { background: linear-gradient(160deg, #1a2e05 0%, #65a30d 100%); }
+.kl6 { background: linear-gradient(160deg, #431407 0%, #ea580c 100%); }
+.kl7 { background: linear-gradient(160deg, #0f172a 0%, #6366f1 100%); }
+.kl8 { background: linear-gradient(160deg, #042f2e 0%, #0d9488 100%); }
+
+/* ===== MORE TN CARD COLORS ===== */
+.tn-marina       { background: linear-gradient(160deg, #0c4a6e 0%, #0ea5e9 100%); }
+.tn-madurai      { background: linear-gradient(160deg, #4a1d96 0%, #a855f7 100%); }
+.tn-mahabalipuram{ background: linear-gradient(160deg, #78350f 0%, #f59e0b 100%); }
+.tn-yelagiri     { background: linear-gradient(160deg, #064e3b 0%, #34d399 100%); }
+.tn-thanjavur    { background: linear-gradient(160deg, #7f1d1d 0%, #ef4444 100%); }
+.tn-rameswaram2  { background: linear-gradient(160deg, #1e1b4b 0%, #818cf8 100%); }
 .auth-error {
   background: #fee2e2;
   border: 1.5px solid #fca5a5;

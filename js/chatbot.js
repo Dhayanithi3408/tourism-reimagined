@@ -3,7 +3,7 @@
 const chatResponses = {
   greetings: ['hi','hello','hey','good morning','good evening','good afternoon','hii','helo'],
   booking: ['book','booking','reserve','reservation','trip','travel','plan'],
-  destinations: ['destination','place','visit','where','location','spot','tamilnadu','tamil','ooty','kodaikanal','manali','shimla','vaishno','rameswaram','kanyakumari'],
+  kerala: ['kerala','alleppey','munnar','thekkady','kovalam','wayanad','kochi','varkala','athirappilly','backwater','houseboat'],
   price: ['price','cost','fee','charge','rate','budget','cheap','affordable','rupee','rs','inr'],
   login: ['login','signup','register','account','password','sign in','sign up'],
   eco: ['eco','green','environment','sustainable','pollution','nature','iot','sensor'],

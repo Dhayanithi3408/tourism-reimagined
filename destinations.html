@@ -35,7 +35,7 @@
 
   <section class="page-header">
     <h1>Explore Destinations</h1>
-    <p>Discover breathtaking locations across Tamil Nadu, Jammu & Himachal Pradesh</p>
+    <p>Discover 30+ breathtaking locations across Tamil Nadu, Kerala, Jammu & Himachal Pradesh</p>
   </section>
 
   <!-- Filter Bar -->
@@ -43,10 +43,13 @@
     <div class="filter-bar">
       <button class="filter-btn active" onclick="filterDest('all', this)">All</button>
       <button class="filter-btn" onclick="filterDest('tamilnadu', this)">Tamil Nadu</button>
+      <button class="filter-btn" onclick="filterDest('kerala', this)">Kerala</button>
       <button class="filter-btn" onclick="filterDest('jammu', this)">Jammu</button>
       <button class="filter-btn" onclick="filterDest('himachal', this)">Himachal Pradesh</button>
       <button class="filter-btn" onclick="filterDest('adventure', this)">Adventure</button>
       <button class="filter-btn" onclick="filterDest('nature', this)">Nature</button>
+      <button class="filter-btn" onclick="filterDest('pilgrimage', this)">Pilgrimage</button>
+      <button class="filter-btn" onclick="filterDest('beach', this)">Beach</button>
       <button class="filter-btn budget-btn" onclick="filterDest('budget', this)"><i class="fas fa-tag"></i> Under ₹4000</button>
     </div>
   </section>
@@ -62,7 +65,7 @@
           <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
         </div>
         <div class="dest-info">
-          <h3>Ooty (Udhagamandalam)</h3>
+          <h3><a href="destination-detail.html?dest=ooty" style="color:inherit">Ooty (Udhagamandalam)</a></h3>
           <p><i class="fas fa-map-marker-alt"></i> Nilgiris, Tamil Nadu</p>
           <div class="dest-meta">
             <span><i class="fas fa-users"></i> Capacity: 70%</span>
@@ -170,7 +173,7 @@
           <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
         </div>
         <div class="dest-info">
-          <h3>Rameswaram</h3>
+          <h3><a href="destination-detail.html?dest=rameswaram" style="color:inherit">Rameswaram</a></h3>
           <p><i class="fas fa-map-marker-alt"></i> Ramanathapuram, Tamil Nadu</p>
           <div class="dest-meta">
             <span><i class="fas fa-users"></i> Capacity: 75%</span>
@@ -200,8 +203,294 @@
         </div>
       </div>
 
-      <!-- ===== JAMMU ===== -->
-      <div class="dest-card" data-cat="jammu nature" data-price="6500">
+      <!-- ===== MORE TAMIL NADU ===== -->
+      <div class="dest-card" data-cat="tamilnadu beach nature budget" data-price="2000">
+        <div class="dest-img tn-marina">
+          <span class="dest-badge">Tamil Nadu</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Marina Beach, Chennai</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 75%</span><span><i class="fas fa-star"></i> 4.5</span></div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 2,000 <span>/ per head</span></div>
+          <p class="dest-desc">World's second longest urban beach — sunrise walks, street food, lighthouse, and vibrant local culture.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="tamilnadu pilgrimage nature budget" data-price="2500">
+        <div class="dest-img tn-madurai">
+          <span class="dest-badge">Tamil Nadu</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Madurai — Meenakshi Temple</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Madurai, Tamil Nadu</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 80%</span><span><i class="fas fa-star"></i> 4.9</span></div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 2,500 <span>/ per head</span></div>
+          <p class="dest-desc">The Temple City — iconic Meenakshi Amman Temple with stunning Dravidian architecture and vibrant culture.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="tamilnadu beach nature budget" data-price="3000">
+        <div class="dest-img tn-mahabalipuram">
+          <span class="dest-badge">Tamil Nadu</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Mahabalipuram</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Chengalpattu, Tamil Nadu</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 60%</span><span><i class="fas fa-star"></i> 4.7</span></div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 3,000 <span>/ per head</span></div>
+          <p class="dest-desc">UNESCO World Heritage Site — ancient rock-cut temples, Shore Temple, and beautiful Bay of Bengal beaches.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="tamilnadu nature adventure budget" data-price="1800">
+        <div class="dest-img tn-yelagiri">
+          <span class="dest-badge">Tamil Nadu</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Yelagiri Hills</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Tirupattur, Tamil Nadu</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 40%</span><span><i class="fas fa-star"></i> 4.4</span></div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 1,800 <span>/ per head</span></div>
+          <p class="dest-desc">Peaceful hill station with rose gardens, boating lake, paragliding, and trekking trails — perfect budget getaway.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="tamilnadu nature pilgrimage budget" data-price="3200">
+        <div class="dest-img tn-thanjavur">
+          <span class="dest-badge">Tamil Nadu</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Thanjavur — Brihadeeswarar</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Thanjavur, Tamil Nadu</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 55%</span><span><i class="fas fa-star"></i> 4.8</span></div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 3,200 <span>/ per head</span></div>
+          <p class="dest-desc">UNESCO Heritage — the magnificent Brihadeeswarar Temple, Tanjore paintings, and rich Chola dynasty history.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="tamilnadu beach nature budget" data-price="2800">
+        <div class="dest-img tn-rameswaram2">
+          <span class="dest-badge">Tamil Nadu</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Pondicherry</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Puducherry, Tamil Nadu</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 70%</span><span><i class="fas fa-star"></i> 4.7</span></div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 2,800 <span>/ per head</span></div>
+          <p class="dest-desc">French Riviera of the East — colonial architecture, Auroville, pristine beaches, and French-Tamil cuisine.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <!-- ===== KERALA ===== -->
+      <div class="dest-card" data-cat="kerala nature budget" data-price="3500">
+        <div class="dest-img kl1">
+          <span class="dest-badge">Kerala</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3><a href="destination-detail.html?dest=alleppey" style="color:inherit">Alleppey Backwaters</a></h3>
+          <p><i class="fas fa-map-marker-alt"></i> Alappuzha, Kerala</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 65%</span><span><i class="fas fa-star"></i> 4.9</span></div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 3,500 <span>/ per head</span></div>
+          <p class="dest-desc">Venice of the East — iconic houseboat stays, serene backwater canals, paddy fields, and coconut groves.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="kerala nature adventure budget" data-price="2800">
+        <div class="dest-img kl2">
+          <span class="dest-badge">Kerala</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3><a href="destination-detail.html?dest=munnar" style="color:inherit">Munnar</a></h3>
+          <p><i class="fas fa-map-marker-alt"></i> Idukki, Kerala</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 70%</span><span><i class="fas fa-star"></i> 4.8</span></div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 2,800 <span>/ per head</span></div>
+          <p class="dest-desc">Rolling tea plantations, misty mountains, Eravikulam National Park, and stunning Anamudi peak views.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="kerala nature adventure budget" data-price="3200">
+        <div class="dest-img kl3">
+          <span class="dest-badge">Kerala</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Thekkady — Periyar</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Idukki, Kerala</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 55%</span><span><i class="fas fa-star"></i> 4.7</span></div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 3,200 <span>/ per head</span></div>
+          <p class="dest-desc">Periyar Tiger Reserve — boat safari, elephant sightings, spice plantations, and bamboo rafting adventures.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="kerala beach nature budget" data-price="2500">
+        <div class="dest-img kl4">
+          <span class="dest-badge">Kerala</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Kovalam Beach</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Thiruvananthapuram, Kerala</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 60%</span><span><i class="fas fa-star"></i> 4.6</span></div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 2,500 <span>/ per head</span></div>
+          <p class="dest-desc">Crescent-shaped paradise — lighthouse beach, Ayurvedic resorts, surfing, and spectacular Arabian Sea sunsets.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="kerala nature adventure budget" data-price="3800">
+        <div class="dest-img kl5">
+          <span class="dest-badge">Kerala</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Wayanad</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Wayanad, Kerala</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 50%</span><span><i class="fas fa-star"></i> 4.8</span></div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 3,800 <span>/ per head</span></div>
+          <p class="dest-desc">Green paradise — Edakkal Caves, Chembra Peak trek, wildlife sanctuary, waterfalls, and tribal heritage.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="kerala beach nature budget" data-price="3000">
+        <div class="dest-img kl6">
+          <span class="dest-badge">Kerala</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Fort Kochi</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Ernakulam, Kerala</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 65%</span><span><i class="fas fa-star"></i> 4.7</span></div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 3,000 <span>/ per head</span></div>
+          <p class="dest-desc">Historic port city — Chinese fishing nets, colonial architecture, spice markets, Kathakali performances.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="kerala beach nature budget" data-price="3500">
+        <div class="dest-img kl7">
+          <span class="dest-badge">Kerala</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Varkala Beach</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Thiruvananthapuram, Kerala</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 55%</span><span><i class="fas fa-star"></i> 4.6</span></div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 3,500 <span>/ per head</span></div>
+          <p class="dest-desc">Cliff-top beach — mineral springs, Janardhana Swami Temple, paragliding, and stunning cliff-side cafes.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="kerala nature adventure budget" data-price="2200">
+        <div class="dest-img kl8">
+          <span class="dest-badge">Kerala</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Athirappilly Falls</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Thrissur, Kerala</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 60%</span><span><i class="fas fa-star"></i> 4.7</span></div>
+          <div class="price-tag"><i class="fas fa-rupee-sign"></i> 2,200 <span>/ per head</span></div>
+          <p class="dest-desc">Niagara of India — Kerala's largest waterfall, lush rainforest, elephant corridor, and Vazhachal falls nearby.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <!-- ===== MORE JAMMU ===== -->
+      <div class="dest-card" data-cat="jammu adventure nature" data-price="7500">
+        <div class="dest-img jammu2">
+          <span class="dest-badge">Jammu</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Patnitop</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Udhampur, Jammu</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 55%</span><span><i class="fas fa-star"></i> 4.6</span></div>
+          <div class="price-tag premium"><i class="fas fa-rupee-sign"></i> 7,500 <span>/ per head</span></div>
+          <p class="dest-desc">Beautiful plateau in the Shivalik range — skiing, trekking, and panoramic Himalayan views year-round.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="jammu pilgrimage nature" data-price="8000">
+        <div class="dest-img jammu3">
+          <span class="dest-badge">Jammu</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Gulmarg</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Baramulla, J&K</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 60%</span><span><i class="fas fa-star"></i> 4.9</span></div>
+          <div class="price-tag premium"><i class="fas fa-rupee-sign"></i> 8,000 <span>/ per head</span></div>
+          <p class="dest-desc">Meadow of Flowers — world-class skiing, gondola ride, snow-covered peaks, and breathtaking alpine scenery.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <!-- ===== MORE HIMACHAL ===== -->
+      <div class="dest-card" data-cat="himachal adventure nature" data-price="9000">
+        <div class="dest-img himachal3">
+          <span class="dest-badge">Himachal</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Spiti Valley</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Lahaul-Spiti, Himachal Pradesh</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 40%</span><span><i class="fas fa-star"></i> 4.9</span></div>
+          <div class="price-tag premium"><i class="fas fa-rupee-sign"></i> 9,000 <span>/ per head</span></div>
+          <p class="dest-desc">Cold desert mountain valley — ancient monasteries, dramatic landscapes, and pristine untouched wilderness.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="himachal nature adventure" data-price="6500">
+        <div class="dest-img himachal1">
+          <span class="dest-badge">Himachal</span>
+          <span class="eco-badge eco-warn"><i class="fas fa-exclamation-triangle"></i> Moderate</span>
+        </div>
+        <div class="dest-info">
+          <h3>Dharamshala & McLeod Ganj</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Kangra, Himachal Pradesh</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 65%</span><span><i class="fas fa-star"></i> 4.7</span></div>
+          <div class="price-tag premium"><i class="fas fa-rupee-sign"></i> 6,500 <span>/ per head</span></div>
+          <p class="dest-desc">Home of the Dalai Lama — Tibetan culture, trekking to Triund, cricket stadium, and stunning Dhauladhar views.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
+
+      <div class="dest-card" data-cat="himachal adventure nature" data-price="7000">
+        <div class="dest-img himachal2">
+          <span class="dest-badge">Himachal</span>
+          <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
+        </div>
+        <div class="dest-info">
+          <h3>Kasol & Kheerganga</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Kullu, Himachal Pradesh</p>
+          <div class="dest-meta"><span><i class="fas fa-users"></i> Capacity: 50%</span><span><i class="fas fa-star"></i> 4.6</span></div>
+          <div class="price-tag premium"><i class="fas fa-rupee-sign"></i> 7,000 <span>/ per head</span></div>
+          <p class="dest-desc">Mini Israel of India — Parvati Valley, hot springs at Kheerganga, camping, and stunning riverside trails.</p>
+          <a href="booking.html" class="btn-primary btn-sm">Book Now</a>
+        </div>
+      </div>
         <div class="dest-img jammu1">
           <span class="dest-badge">Jammu</span>
           <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
@@ -244,7 +533,7 @@
           <span class="eco-badge"><i class="fas fa-leaf"></i> Eco-Safe</span>
         </div>
         <div class="dest-info">
-          <h3>Manali</h3>
+          <h3><a href="destination-detail.html?dest=manali" style="color:inherit">Manali</a></h3>
           <p><i class="fas fa-map-marker-alt"></i> Kullu, Himachal Pradesh</p>
           <div class="dest-meta">
             <span><i class="fas fa-users"></i> Capacity: 65%</span>

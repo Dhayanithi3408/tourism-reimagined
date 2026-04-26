@@ -108,8 +108,23 @@ function logout() {
 // ===== BOOKING FORM =====
 function submitBooking(e) {
   e.preventDefault();
-  document.getElementById('bookingForm').style.display = 'none';
-  document.getElementById('bookingSuccess').style.display = 'block';
+  const form = document.getElementById('bookingForm');
+  const dest = form.querySelector('select').value;
+  const travelers = form.querySelector('input[type="number"]').value;
+  const checkin = form.querySelectorAll('input[type="date"]')[0].value;
+  const checkout = form.querySelectorAll('input[type="date"]')[1].value;
+  const accom = form.querySelectorAll('select')[1].value;
+  const priceMap = {
+    'Vaishno Devi, Jammu':6500,'Manali, Himachal Pradesh':8500,'Shimla, Himachal Pradesh':7800,
+    'Patnitop, Jammu':7500,'Spiti Valley, Himachal Pradesh':9000,'Dal Lake, Srinagar':7200,
+    'Ooty':1800,'Kodaikanal':2200,'Yercaud':2500,'Valparai':1500,'Mudumalai National Park':3200,
+    'Hogenakkal Falls':2800,'Rameswaram':3500,'Kanyakumari':3800,
+    'Alleppey Backwaters':3500,'Munnar':2800,'Thekkady':3200,'Kovalam Beach':2500,
+    'Wayanad':3800,'Fort Kochi':3000,'Varkala Beach':3500,'Athirappilly Falls':2200
+  };
+  const base = (priceMap[dest] || 3500) * (parseInt(travelers) || 1);
+  localStorage.setItem('gp_booking', JSON.stringify({destination:dest, travelers, checkin, checkout, accommodation:accom, total:base}));
+  window.location.href = 'payment.html';
 }
 
 // ===== CONTACT FORM =====

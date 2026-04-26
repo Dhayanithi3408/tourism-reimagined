@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment - GreenPass Smart Tourism</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    .payment-section{padding:60px 32px;background:var(--light)}
+    .payment-container{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 380px;gap:32px;align-items:start}
+    .payment-box{background:#fff;border-radius:var(--radius-lg);padding:40px;box-shadow:var(--shadow)}
+    .payment-box h2{font-size:1.5rem;font-weight:900;margin-bottom:28px;display:flex;align-items:center;gap:10px}
+    .payment-box h2 .fas{color:var(--green)}
+    .pay-methods{display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap}
+    .pay-method{flex:1;min-width:120px;border:2px solid var(--border);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;font-weight:600;font-size:0.88rem;color:var(--gray)}
+    .pay-method:hover,.pay-method.active{border-color:var(--green);background:var(--green-50);color:var(--green)}
+    .pay-method .fas,.pay-method .fab{font-size:1.4rem;display:block;margin-bottom:6px}
+    .card-preview{background:linear-gradient(135deg,#064e3b,#047857);border-radius:16px;padding:28px;color:#fff;margin-bottom:24px;position:relative;overflow:hidden}
+    .card-preview::before{content:'';position:absolute;top:-40px;right:-40px;width:150px;height:150px;background:rgba(255,255,255,0.05);border-radius:50%}
+    .card-preview::after{content:'';position:absolute;bottom:-30px;left:-20px;width:100px;height:100px;background:rgba(255,255,255,0.05);border-radius:50%}
+    .card-chip{width:40px;height:30px;background:linear-gradient(135deg,#fbbf24,#f59e0b);border-radius:6px;margin-bottom:20px}
+    .card-number{font-size:1.2rem;letter-spacing:4px;font-weight:700;margin-bottom:16px}
+    .card-row{display:flex;justify-content:space-between;font-size:0.82rem;opacity:0.8}
+    .order-summary{background:#fff;border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow);position:sticky;top:90px}
+    .order-summary h3{font-weight:800;margin-bottom:20px;font-size:1.1rem;padding-bottom:12px;border-bottom:1px solid var(--border)}
+    .order-item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:0.9rem}
+    .order-item:last-of-type{border-bottom:none}
+    .order-item span:last-child{font-weight:700;color:var(--dark)}
+    .order-total{display:flex;justify-content:space-between;padding:16px 0 0;font-size:1.1rem;font-weight:900;color:var(--green);margin-top:8px;border-top:2px solid var(--green-light)}
+    .secure-badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+    .secure-badge{display:flex;align-items:center;gap:6px;background:var(--green-50);border:1px solid var(--green-light);padding:6px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;color:var(--green)}
+    .upi-section,.netbanking-section,.wallet-section{display:none}
+    .upi-section.show,.netbanking-section.show,.wallet-section.show,.card-section.show{display:block}
+    .bank-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+    .bank-btn{border:2px solid var(--border);border-radius:10px;padding:14px 10px;text-align:center;cursor:pointer;transition:all 0.2s;font-size:0.82rem;font-weight:600;color:var(--gray)}
+    .bank-btn:hover{border-color:var(--green);color:var(--green);background:var(--green-50)}
+    .wallet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+    .wallet-btn{border:2px solid var(--border);border-radius:10px;padding:14px 10px;text-align:center;cursor:pointer;transition:all 0.2s;font-size:0.82rem;font-weight:600;color:var(--gray)}
+    .wallet-btn:hover{border-color:var(--green);color:var(--green);background:var(--green-50)}
+    .payment-success{text-align:center;padding:48px 24px;display:none}
+    .payment-success .tick{width:80px;height:80px;background:linear-gradient(135deg,var(--green),#34d399);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:2rem;color:#fff;box-shadow:0 8px 24px rgba(22,163,74,0.3)}
+    .payment-success h3{font-size:1.6rem;font-weight:900;margin-bottom:10px}
+    .payment-success p{color:var(--gray);margin-bottom:6px}
+    .booking-id{background:var(--green-50);border:1px solid var(--green-light);padding:12px 24px;border-radius:10px;font-weight:800;color:var(--green);font-size:1.1rem;margin:16px 0 24px;display:inline-block}
+    @media(max-width:900px){.payment-container{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fas fa-mountain"></i>
+        <div><span class="logo-title">GreenPass</span><span class="logo-sub">Tourist Management</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="destinations.html">Destinations</a></li>
+        <li><a href="booking.html" class="active">Book Now</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-buttons">
+        <a href="login.html" class="btn-outline">Login</a>
+        <a href="signup.html" class="btn-primary">Sign Up</a>
+      </div>
+      <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+    </div>
+  </nav>
+
+  <section class="page-header">
+    <h1><i class="fas fa-lock"></i> Secure Payment</h1>
+    <p>Your payment is protected with 256-bit SSL encryption</p>
+  </section>
+
+  <section class="payment-section">
+    <div class="payment-container">
+
+      <!-- Payment Form -->
+      <div class="payment-box" id="paymentBox">
+        <h2><i class="fas fa-credit-card"></i> Choose Payment Method</h2>
+
+        <!-- Method Tabs -->
+        <div class="pay-methods">
+          <div class="pay-method active" onclick="switchMethod('card',this)">
+            <i class="fas fa-credit-card"></i>Credit/Debit Card
+          </div>
+          <div class="pay-method" onclick="switchMethod('upi',this)">
+            <i class="fas fa-mobile-alt"></i>UPI
+          </div>
+          <div class="pay-method" onclick="switchMethod('netbanking',this)">
+            <i class="fas fa-university"></i>Net Banking
+          </div>
+          <div class="pay-method" onclick="switchMethod('wallet',this)">
+            <i class="fas fa-wallet"></i>Wallet
+          </div>
+        </div>
+
+        <!-- CARD SECTION -->
+        <div class="card-section show" id="cardSection">
+          <div class="card-preview">
+            <div class="card-chip"></div>
+            <div class="card-number" id="previewNum">•••• •••• •••• ••••</div>
+            <div class="card-row">
+              <div><div style="font-size:0.7rem;opacity:0.6;margin-bottom:2px">CARD HOLDER</div><div id="previewName" style="font-weight:700">YOUR NAME</div></div>
+              <div><div style="font-size:0.7rem;opacity:0.6;margin-bottom:2px">EXPIRES</div><div id="previewExp" style="font-weight:700">MM/YY</div></div>
+            </div>
+          </div>
+          <form id="paymentForm" onsubmit="processPayment(event)">
+            <div class="form-group">
+              <label>Card Number</label>
+              <div class="input-icon">
+                <i class="fas fa-credit-card"></i>
+                <input type="text" id="cardNum" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)" required/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Card Holder Name</label>
+              <div class="input-icon">
+                <i class="fas fa-user"></i>
+                <input type="text" id="cardName" placeholder="Name on card" oninput="document.getElementById('previewName').textContent=this.value.toUpperCase()||'YOUR NAME'" required/>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Expiry Date</label>
+                <input type="text" id="cardExp" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)" required/>
+              </div>
+              <div class="form-group">
+                <label>CVV</label>
+                <div class="input-icon">
+                  <i class="fas fa-lock"></i>
+                  <input type="password" placeholder="•••" maxlength="3" required/>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn-primary btn-full" style="margin-top:8px">
+              <i class="fas fa-lock"></i> Pay ₹<span id="payBtn">3,500</span> Securely
+            </button>
+          </form>
+        </div>
+
+        <!-- UPI SECTION -->
+        <div class="upi-section" id="upiSection">
+          <div class="form-group">
+            <label>Enter UPI ID</label>
+            <div class="input-icon">
+              <i class="fas fa-at"></i>
+              <input type="text" placeholder="yourname@upi" id="upiId"/>
+            </div>
+          </div>
+          <p style="text-align:center;color:var(--gray);font-size:0.85rem;margin:12px 0">— OR pay using —</p>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:20px">
+            <div class="bank-btn" style="min-width:100px" onclick="selectUPI(this,'GPay')"><i class="fas fa-google" style="font-size:1.4rem;display:block;margin-bottom:4px;color:#4285f4"></i>GPay</div>
+            <div class="bank-btn" style="min-width:100px" onclick="selectUPI(this,'PhonePe')"><i class="fas fa-mobile-alt" style="font-size:1.4rem;display:block;margin-bottom:4px;color:#5f259f"></i>PhonePe</div>
+            <div class="bank-btn" style="min-width:100px" onclick="selectUPI(this,'Paytm')"><i class="fas fa-rupee-sign" style="font-size:1.4rem;display:block;margin-bottom:4px;color:#00baf2"></i>Paytm</div>
+            <div class="bank-btn" style="min-width:100px" onclick="selectUPI(this,'BHIM')"><i class="fas fa-landmark" style="font-size:1.4rem;display:block;margin-bottom:4px;color:#ff6600"></i>BHIM</div>
+          </div>
+          <button class="btn-primary btn-full" onclick="processPayment(event)"><i class="fas fa-lock"></i> Pay ₹<span class="payAmt">3,500</span> via UPI</button>
+        </div>
+
+        <!-- NET BANKING SECTION -->
+        <div class="netbanking-section" id="netbankingSection">
+          <div class="form-group"><label>Select Your Bank</label></div>
+          <div class="bank-grid">
+            <div class="bank-btn" onclick="selectBank(this)">SBI</div>
+            <div class="bank-btn" onclick="selectBank(this)">HDFC</div>
+            <div class="bank-btn" onclick="selectBank(this)">ICICI</div>
+            <div class="bank-btn" onclick="selectBank(this)">Axis</div>
+            <div class="bank-btn" onclick="selectBank(this)">Kotak</div>
+            <div class="bank-btn" onclick="selectBank(this)">PNB</div>
+            <div class="bank-btn" onclick="selectBank(this)">BOB</div>
+            <div class="bank-btn" onclick="selectBank(this)">Canara</div>
+            <div class="bank-btn" onclick="selectBank(this)">Union</div>
+          </div>
+          <button class="btn-primary btn-full" onclick="processPayment(event)"><i class="fas fa-university"></i> Proceed to Bank</button>
+        </div>
+
+        <!-- WALLET SECTION -->
+        <div class="wallet-section" id="walletSection">
+          <div class="wallet-grid">
+            <div class="wallet-btn" onclick="selectWallet(this)"><i class="fas fa-rupee-sign" style="font-size:1.4rem;display:block;margin-bottom:4px;color:#00baf2"></i>Paytm</div>
+            <div class="wallet-btn" onclick="selectWallet(this)"><i class="fas fa-mobile-alt" style="font-size:1.4rem;display:block;margin-bottom:4px;color:#5f259f"></i>PhonePe</div>
+            <div class="wallet-btn" onclick="selectWallet(this)"><i class="fas fa-amazon" style="font-size:1.4rem;display:block;margin-bottom:4px;color:#ff9900"></i>Amazon Pay</div>
+            <div class="wallet-btn" onclick="selectWallet(this)"><i class="fab fa-airbnb" style="font-size:1.4rem;display:block;margin-bottom:4px;color:#ff5a5f"></i>Freecharge</div>
+            <div class="wallet-btn" onclick="selectWallet(this)"><i class="fas fa-wallet" style="font-size:1.4rem;display:block;margin-bottom:4px;color:#16a34a"></i>MobiKwik</div>
+            <div class="wallet-btn" onclick="selectWallet(this)"><i class="fas fa-coins" style="font-size:1.4rem;display:block;margin-bottom:4px;color:#f59e0b"></i>Ola Money</div>
+          </div>
+          <button class="btn-primary btn-full" onclick="processPayment(event)"><i class="fas fa-wallet"></i> Pay ₹<span class="payAmt">3,500</span> via Wallet</button>
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="payment-success" id="paymentSuccess">
+          <div class="tick"><i class="fas fa-check"></i></div>
+          <h3>Payment Successful! 🎉</h3>
+          <p>Your booking has been confirmed.</p>
+          <div class="booking-id" id="bookingId">GP-2026-XXXXX</div>
+          <p style="color:var(--gray);font-size:0.88rem">A confirmation has been sent to your email.</p>
+          <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;flex-wrap:wrap">
+            <a href="index.html" class="btn-primary"><i class="fas fa-home"></i> Back to Home</a>
+            <a href="destinations.html" class="btn-outline"><i class="fas fa-map-marker-alt"></i> Explore More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="order-summary">
+        <h3><i class="fas fa-receipt" style="color:var(--green);margin-right:8px"></i>Order Summary</h3>
+        <div class="order-item"><span>Destination</span><span id="sumDest">Rameswaram</span></div>
+        <div class="order-item"><span>Travelers</span><span id="sumTravelers">2 Adults</span></div>
+        <div class="order-item"><span>Check-In</span><span id="sumCheckin">—</span></div>
+        <div class="order-item"><span>Check-Out</span><span id="sumCheckout">—</span></div>
+        <div class="order-item"><span>Accommodation</span><span id="sumAccom">Standard Hotel</span></div>
+        <div class="order-item"><span>Base Price</span><span id="sumBase">₹3,500</span></div>
+        <div class="order-item"><span>Taxes (5%)</span><span id="sumTax">₹175</span></div>
+        <div class="order-item"><span>Service Fee</span><span>₹99</span></div>
+        <div class="order-total"><span>Total Amount</span><span id="sumTotal">₹3,774</span></div>
+
+        <div class="secure-badges">
+          <div class="secure-badge"><i class="fas fa-shield-alt"></i> SSL Secured</div>
+          <div class="secure-badge"><i class="fas fa-lock"></i> 256-bit Encrypted</div>
+          <div class="secure-badge"><i class="fas fa-undo"></i> Easy Refund</div>
+        </div>
+
+        <div style="margin-top:20px;padding:14px;background:var(--green-50);border-radius:10px;border:1px solid var(--green-light)">
+          <p style="font-size:0.82rem;color:var(--green);font-weight:600"><i class="fas fa-tag"></i> Promo Applied!</p>
+          <p style="font-size:0.78rem;color:var(--gray);margin-top:4px">GREENPASS10 — 10% off on first booking</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-bottom">
+      <p>© 2026 GreenPass Tourist Management System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script>
+    // Load booking data from localStorage
+    window.addEventListener('DOMContentLoaded', () => {
+      const b = JSON.parse(localStorage.getItem('gp_booking') || '{}');
+      if (b.destination) document.getElementById('sumDest').textContent = b.destination;
+      if (b.travelers) document.getElementById('sumTravelers').textContent = b.travelers + ' Traveler(s)';
+      if (b.checkin) document.getElementById('sumCheckin').textContent = b.checkin;
+      if (b.checkout) document.getElementById('sumCheckout').textContent = b.checkout;
+      if (b.accommodation) document.getElementById('sumAccom').textContent = b.accommodation;
+      if (b.total) {
+        const base = parseInt(b.total);
+        const tax = Math.round(base * 0.05);
+        const total = base + tax + 99;
+        document.getElementById('sumBase').textContent = '₹' + base.toLocaleString('en-IN');
+        document.getElementById('sumTax').textContent = '₹' + tax.toLocaleString('en-IN');
+        document.getElementById('sumTotal').textContent = '₹' + total.toLocaleString('en-IN');
+        document.getElementById('payBtn').textContent = total.toLocaleString('en-IN');
+        document.querySelectorAll('.payAmt').forEach(el => el.textContent = total.toLocaleString('en-IN'));
+      }
+    });
+
+    function switchMethod(method, el) {
+      document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('cardSection').classList.remove('show');
+      document.getElementById('upiSection').classList.remove('show');
+      document.getElementById('netbankingSection').classList.remove('show');
+      document.getElementById('walletSection').classList.remove('show');
+      if (method === 'card') document.getElementById('cardSection').classList.add('show');
+      if (method === 'upi') document.getElementById('upiSection').classList.add('show');
+      if (method === 'netbanking') document.getElementById('netbankingSection').classList.add('show');
+      if (method === 'wallet') document.getElementById('walletSection').classList.add('show');
+    }
+
+    function formatCard(el) {
+      let v = el.value.replace(/\D/g, '').substring(0, 16);
+      el.value = v.replace(/(.{4})/g, '$1 ').trim();
+      const display = v.padEnd(16, '•').replace(/(.{4})/g, '$1 ').trim();
+      document.getElementById('previewNum').textContent = display;
+    }
+
+    function formatExpiry(el) {
+      let v = el.value.replace(/\D/g, '');
+      if (v.length >= 2) v = v.substring(0,2) + '/' + v.substring(2,4);
+      el.value = v;
+      document.getElementById('previewExp').textContent = v || 'MM/YY';
+    }
+
+    function selectBank(el) {
+      document.querySelectorAll('.bank-btn').forEach(b => b.style.borderColor = '');
+      el.style.borderColor = 'var(--green)';
+      el.style.color = 'var(--green)';
+    }
+    function selectWallet(el) {
+      document.querySelectorAll('.wallet-btn').forEach(b => b.style.borderColor = '');
+      el.style.borderColor = 'var(--green)';
+    }
+    function selectUPI(el, name) {
+      document.querySelectorAll('.bank-btn').forEach(b => b.style.borderColor = '');
+      el.style.borderColor = 'var(--green)';
+      document.getElementById('upiId').value = '';
+      document.getElementById('upiId').placeholder = 'yourname@' + name.toLowerCase();
+    }
+
+    function processPayment(e) {
+      if (e) e.preventDefault();
+      const btn = document.querySelector('.btn-primary.btn-full');
+      if (btn) { btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...'; btn.disabled = true; }
+      setTimeout(() => {
+        document.getElementById('paymentBox').querySelector('h2').style.display = 'none';
+        document.querySelectorAll('.pay-methods,.card-section,.upi-section,.netbanking-section,.wallet-section').forEach(el => el.style.display = 'none');
+        const id = 'GP-2026-' + Math.random().toString(36).substring(2,7).toUpperCase();
+        document.getElementById('bookingId').textContent = id;
+        document.getElementById('paymentSuccess').style.display = 'block';
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
