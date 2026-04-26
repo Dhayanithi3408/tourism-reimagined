@@ -38,7 +38,33 @@
     <p>Discover 30+ breathtaking locations across Tamil Nadu, Kerala, Jammu & Himachal Pradesh</p>
   </section>
 
-  <!-- Filter Bar -->
+  <style>
+    /* ===== CARD MAP/VIDEO PANEL ===== */
+    .dest-media { display:none; border-top:1px solid var(--border); }
+    .dest-media.open { display:block; }
+    .media-tabs { display:flex; border-bottom:1px solid var(--border); }
+    .media-tab {
+      flex:1; padding:10px; text-align:center; font-size:0.8rem; font-weight:700;
+      cursor:pointer; color:var(--gray); border-bottom:2px solid transparent;
+      transition:all 0.2s; background:#fff;
+    }
+    .media-tab.active { color:var(--green); border-bottom-color:var(--green); background:var(--green-50); }
+    .media-tab .fas { margin-right:5px; }
+    .media-panel { display:none; }
+    .media-panel.active { display:block; }
+    .media-map iframe { width:100%; height:200px; border:none; display:block; }
+    .media-video { padding:12px; background:#000; }
+    .media-video iframe { width:100%; height:180px; border:none; border-radius:8px; display:block; }
+    .media-toggle {
+      width:100%; padding:9px; background:var(--green-50); border:none; border-top:1px solid var(--green-light);
+      color:var(--green); font-weight:700; font-size:0.82rem; cursor:pointer;
+      display:flex; align-items:center; justify-content:center; gap:6px;
+      transition:background 0.2s; font-family:inherit;
+    }
+    .media-toggle:hover { background:var(--green-light); }
+    .dest-actions { display:flex; gap:8px; padding:14px 20px 16px; border-top:1px solid var(--border); }
+    .dest-actions a { flex:1; text-align:center; }
+  </style>
   <section class="filter-section">
     <div class="filter-bar">
       <button class="filter-btn active" onclick="filterDest('all', this)">All</button>
@@ -589,6 +615,136 @@
   </footer>
 
   <script src="js/main.js"></script>
-<script src="js/chatbot.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script>
+  const destMedia = {
+    'ooty':         { q:'Ooty+Tamil+Nadu+India',           yt:'Ooty hill station travel guide' },
+    'kodaikanal':   { q:'Kodaikanal+Tamil+Nadu+India',     yt:'Kodaikanal travel guide' },
+    'yercaud':      { q:'Yercaud+Salem+Tamil+Nadu+India',  yt:'Yercaud hill station tour' },
+    'valparai':     { q:'Valparai+Coimbatore+India',       yt:'Valparai tea estate tour' },
+    'mudumalai':    { q:'Mudumalai+National+Park+India',   yt:'Mudumalai national park safari' },
+    'hogenakkal':   { q:'Hogenakkal+Falls+India',          yt:'Hogenakkal falls boat ride' },
+    'rameswaram':   { q:'Rameswaram+Tamil+Nadu+India',     yt:'Rameswaram temple Pamban bridge' },
+    'kanyakumari':  { q:'Kanyakumari+Tamil+Nadu+India',    yt:'Kanyakumari sunrise sunset' },
+    'marina':       { q:'Marina+Beach+Chennai+India',      yt:'Marina beach Chennai tour' },
+    'madurai':      { q:'Meenakshi+Temple+Madurai+India',  yt:'Madurai Meenakshi temple tour' },
+    'mahabalipuram':{ q:'Mahabalipuram+Tamil+Nadu+India',  yt:'Mahabalipuram shore temple' },
+    'yelagiri':     { q:'Yelagiri+Hills+Tamil+Nadu+India', yt:'Yelagiri hills trekking' },
+    'thanjavur':    { q:'Brihadeeswarar+Temple+Thanjavur', yt:'Thanjavur Brihadeeswarar temple' },
+    'pondicherry':  { q:'Pondicherry+India',               yt:'Pondicherry French town beach' },
+    'alleppey':     { q:'Alleppey+Kerala+India',           yt:'Alleppey backwaters houseboat Kerala' },
+    'munnar':       { q:'Munnar+Kerala+India',             yt:'Munnar tea plantation Kerala' },
+    'thekkady':     { q:'Thekkady+Kerala+India',           yt:'Thekkady Periyar wildlife safari' },
+    'kovalam':      { q:'Kovalam+Beach+Kerala+India',      yt:'Kovalam beach Kerala' },
+    'wayanad':      { q:'Wayanad+Kerala+India',            yt:'Wayanad Kerala nature tour' },
+    'fortkochi':    { q:'Fort+Kochi+Kerala+India',         yt:'Fort Kochi Chinese fishing nets' },
+    'varkala':      { q:'Varkala+Beach+Kerala+India',      yt:'Varkala cliff beach Kerala' },
+    'athirappilly': { q:'Athirappilly+Falls+Kerala+India', yt:'Athirappilly waterfalls Kerala' },
+    'patnitop':     { q:'Patnitop+Jammu+India',            yt:'Patnitop Jammu skiing trekking' },
+    'gulmarg':      { q:'Gulmarg+Kashmir+India',           yt:'Gulmarg gondola skiing Kashmir' },
+    'spiti':        { q:'Spiti+Valley+Himachal+Pradesh',   yt:'Spiti Valley Himachal Pradesh tour' },
+    'dharamshala':  { q:'Dharamshala+Himachal+Pradesh',    yt:'Dharamshala McLeod Ganj tour' },
+    'kasol':        { q:'Kasol+Himachal+Pradesh+India',    yt:'Kasol Kheerganga trek Himachal' },
+    'vaishno':      { q:'Vaishno+Devi+Jammu+India',        yt:'Vaishno Devi temple trek' },
+    'dallake':      { q:'Dal+Lake+Srinagar+India',         yt:'Dal Lake Srinagar houseboat' },
+    'manali':       { q:'Manali+Himachal+Pradesh+India',   yt:'Manali Rohtang Pass travel guide' },
+    'shimla':       { q:'Shimla+Himachal+Pradesh+India',   yt:'Shimla hill station tour' },
+  };
+
+  document.querySelectorAll('.dest-card').forEach(card => {
+    const h3 = card.querySelector('h3');
+    if (!h3) return;
+    const title = h3.textContent.trim().toLowerCase();
+    let key = null;
+    if (title.includes('ooty') || title.includes('udhagamandalam')) key = 'ooty';
+    else if (title.includes('kodaikanal')) key = 'kodaikanal';
+    else if (title.includes('yercaud')) key = 'yercaud';
+    else if (title.includes('valparai')) key = 'valparai';
+    else if (title.includes('mudumalai')) key = 'mudumalai';
+    else if (title.includes('hogenakkal')) key = 'hogenakkal';
+    else if (title.includes('rameswaram')) key = 'rameswaram';
+    else if (title.includes('kanyakumari')) key = 'kanyakumari';
+    else if (title.includes('marina')) key = 'marina';
+    else if (title.includes('madurai') || title.includes('meenakshi')) key = 'madurai';
+    else if (title.includes('mahabalipuram')) key = 'mahabalipuram';
+    else if (title.includes('yelagiri')) key = 'yelagiri';
+    else if (title.includes('thanjavur') || title.includes('brihadeeswarar')) key = 'thanjavur';
+    else if (title.includes('pondicherry')) key = 'pondicherry';
+    else if (title.includes('alleppey')) key = 'alleppey';
+    else if (title.includes('munnar')) key = 'munnar';
+    else if (title.includes('thekkady') || title.includes('periyar')) key = 'thekkady';
+    else if (title.includes('kovalam')) key = 'kovalam';
+    else if (title.includes('wayanad')) key = 'wayanad';
+    else if (title.includes('fort kochi') || title.includes('kochi')) key = 'fortkochi';
+    else if (title.includes('varkala')) key = 'varkala';
+    else if (title.includes('athirappilly')) key = 'athirappilly';
+    else if (title.includes('patnitop')) key = 'patnitop';
+    else if (title.includes('gulmarg')) key = 'gulmarg';
+    else if (title.includes('spiti')) key = 'spiti';
+    else if (title.includes('dharamshala') || title.includes('mcleod')) key = 'dharamshala';
+    else if (title.includes('kasol') || title.includes('kheerganga')) key = 'kasol';
+    else if (title.includes('vaishno')) key = 'vaishno';
+    else if (title.includes('dal lake')) key = 'dallake';
+    else if (title.includes('manali')) key = 'manali';
+    else if (title.includes('shimla')) key = 'shimla';
+
+    if (!key || !destMedia[key]) return;
+    const d = destMedia[key];
+    const uid = 'dm_' + key;
+
+    // Remove existing Book Now button
+    const bookBtn = card.querySelector('.dest-info .btn-primary');
+    if (bookBtn) bookBtn.remove();
+
+    // Add toggle button
+    const toggleBtn = document.createElement('button');
+    toggleBtn.className = 'media-toggle';
+    toggleBtn.innerHTML = '<i class="fas fa-map-marked-alt"></i> View Map & Video';
+    toggleBtn.onclick = () => toggleMedia(uid, toggleBtn);
+    card.querySelector('.dest-info').appendChild(toggleBtn);
+
+    // Create media panel
+    const panel = document.createElement('div');
+    panel.className = 'dest-media';
+    panel.id = uid;
+    panel.innerHTML = `
+      <div class="media-tabs">
+        <div class="media-tab active" onclick="switchTab('${uid}','map',this)"><i class="fas fa-map-marked-alt"></i> Map</div>
+        <div class="media-tab" onclick="switchTab('${uid}','video',this)"><i class="fab fa-youtube"></i> Video</div>
+      </div>
+      <div class="media-panel active" id="${uid}_map">
+        <div class="media-map">
+          <iframe src="https://maps.google.com/maps?q=${d.q}&output=embed&z=12" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+      <div class="media-panel" id="${uid}_video">
+        <div class="media-video">
+          <iframe src="https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(d.yt)}" allowfullscreen></iframe>
+        </div>
+      </div>
+      <div class="dest-actions">
+        <a href="booking.html" class="btn-primary btn-sm" style="flex:2;justify-content:center"><i class="fas fa-calendar-check"></i> Book Now</a>
+        <a href="destination-detail.html?dest=${key}" class="btn-outline btn-sm" style="flex:1;justify-content:center"><i class="fas fa-info-circle"></i> Details</a>
+      </div>`;
+    card.appendChild(panel);
+  });
+
+  function toggleMedia(uid, btn) {
+    const panel = document.getElementById(uid);
+    const isOpen = panel.classList.contains('open');
+    panel.classList.toggle('open');
+    btn.innerHTML = isOpen
+      ? '<i class="fas fa-map-marked-alt"></i> View Map & Video'
+      : '<i class="fas fa-times"></i> Hide Map & Video';
+    btn.style.background = isOpen ? '' : 'var(--green-light)';
+  }
+
+  function switchTab(uid, tab, el) {
+    document.querySelectorAll('#' + uid + ' .media-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('#' + uid + ' .media-panel').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById(uid + '_' + tab).classList.add('active');
+  }
+  </script>
 </body>
 </html>
