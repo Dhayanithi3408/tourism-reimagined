@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flights & Trains - TRAVEL X</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    .transport-hero{background:linear-gradient(135deg,#0c1445,#1e3a8a,#1d4ed8);color:#fff;padding:60px 32px;text-align:center}
+    .transport-hero h1{font-size:2.6rem;font-weight:900;margin-bottom:10px;letter-spacing:-1px}
+    .transport-hero p{opacity:0.8;font-size:1.05rem}
+    .tab-bar{display:flex;max-width:600px;margin:28px auto 0;background:rgba(255,255,255,0.1);border-radius:12px;padding:4px;gap:4px}
+    .tab-btn{flex:1;padding:12px;border:none;border-radius:9px;font-weight:700;font-size:0.95rem;cursor:pointer;transition:all 0.2s;background:transparent;color:rgba(255,255,255,0.7);font-family:inherit}
+    .tab-btn.active{background:#fff;color:#1e3a8a}
+    .search-section{background:var(--light);padding:40px 32px}
+    .search-box{max-width:900px;margin:0 auto;background:#fff;border-radius:var(--radius-lg);padding:32px;box-shadow:var(--shadow-lg)}
+    .search-box h2{font-size:1.2rem;font-weight:800;margin-bottom:24px;color:var(--dark);display:flex;align-items:center;gap:8px}
+    .search-box h2 .fas{color:var(--blue)}
+    .search-grid{display:grid;grid-template-columns:1fr 1fr 1fr 160px;gap:14px;align-items:end}
+    .search-field label{display:block;font-weight:700;font-size:0.8rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+    .search-field input,.search-field select{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:0.95rem;font-family:inherit;transition:border-color 0.2s;background:#fff}
+    .search-field input:focus,.search-field select:focus{outline:none;border-color:#1e3a8a}
+    .search-btn{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;border:none;padding:13px 28px;border-radius:10px;font-weight:800;font-size:0.95rem;cursor:pointer;width:100%;font-family:inherit;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px}
+    .search-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,99,235,0.3)}
+    .trip-type{display:flex;gap:16px;margin-bottom:20px}
+    .trip-radio{display:flex;align-items:center;gap:6px;font-weight:600;font-size:0.9rem;cursor:pointer}
+    .trip-radio input{accent-color:#1e3a8a}
+    .results-section{max-width:900px;margin:0 auto;padding:0 32px 60px}
+    .results-header{display:flex;justify-content:space-between;align-items:center;padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:20px}
+    .results-header h3{font-weight:800;font-size:1.1rem}
+    .results-header span{color:var(--gray);font-size:0.88rem}
+    .sort-bar{display:flex;gap:8px;flex-wrap:wrap}
+    .sort-btn{padding:6px 14px;border:1.5px solid var(--border);border-radius:20px;font-size:0.8rem;font-weight:600;cursor:pointer;background:#fff;transition:all 0.2s;font-family:inherit}
+    .sort-btn.active,.sort-btn:hover{background:#1e3a8a;color:#fff;border-color:#1e3a8a}
+    .result-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 24px;margin-bottom:14px;box-shadow:var(--shadow);transition:all 0.2s;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
+    .result-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:transparent}
+    .result-main{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+    .airline-logo{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+    .flight-times{display:flex;align-items:center;gap:16px}
+    .time-block{text-align:center}
+    .time-big{font-size:1.4rem;font-weight:900;color:var(--dark)}
+    .time-city{font-size:0.75rem;color:var(--gray);font-weight:600;margin-top:2px}
+    .flight-line{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:100px}
+    .flight-duration{font-size:0.75rem;color:var(--gray);font-weight:600}
+    .flight-bar{width:100%;height:2px;background:var(--border);position:relative}
+    .flight-bar::before{content:'';position:absolute;left:0;top:-3px;width:8px;height:8px;background:#1e3a8a;border-radius:50%}
+    .flight-bar::after{content:'';position:absolute;right:0;top:-3px;width:8px;height:8px;background:#1e3a8a;border-radius:50%}
+    .flight-stops{font-size:0.72rem;color:var(--green);font-weight:700}
+    .flight-stops.stops{color:var(--orange)}
+    .flight-info{display:flex;flex-direction:column;gap:4px}
+    .flight-name{font-weight:700;font-size:0.9rem;color:var(--dark)}
+    .flight-num{font-size:0.75rem;color:var(--gray)}
+    .flight-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+    .ftag{background:var(--light);border:1px solid var(--border);padding:2px 8px;border-radius:10px;font-size:0.7rem;font-weight:600;color:var(--gray)}
+    .ftag.green{background:var(--green-50);border-color:var(--green-light);color:var(--green)}
+    .result-price{text-align:right;flex-shrink:0}
+    .price-amount{font-size:1.5rem;font-weight:900;color:var(--dark)}
+    .price-per{font-size:0.75rem;color:var(--gray);margin-bottom:8px}
+    .book-now-btn{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;border:none;padding:10px 20px;border-radius:8px;font-weight:700;font-size:0.85rem;cursor:pointer;font-family:inherit;transition:all 0.2s;white-space:nowrap}
+    .book-now-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,99,235,0.3)}
+    .no-results{text-align:center;padding:60px 20px;color:var(--gray)}
+    .no-results .fas{font-size:3rem;margin-bottom:16px;display:block;opacity:0.3}
+    .loading-spinner{text-align:center;padding:40px;display:none}
+    .spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:#1e3a8a;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 12px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .train-class-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:0.7rem;font-weight:700}
+    .cls-1a{background:#fef3c7;color:#92400e}
+    .cls-2a{background:#dbeafe;color:#1e40af}
+    .cls-3a{background:#dcfce7;color:#166534}
+    .cls-sl{background:#f3e8ff;color:#6b21a8}
+    .avail-badge{font-size:0.72rem;font-weight:700;padding:2px 8px;border-radius:10px}
+    .avail-good{background:#dcfce7;color:#166534}
+    .avail-low{background:#fee2e2;color:#991b1b}
+    .avail-wait{background:#fef3c7;color:#92400e}
+    @media(max-width:768px){.search-grid{grid-template-columns:1fr 1fr}.result-card{grid-template-columns:1fr}.result-price{text-align:left;display:flex;align-items:center;gap:16px}}
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fas fa-mountain"></i>
+        <div><span class="logo-title">TRAVEL X</span><span class="logo-sub">Smart Tourism</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="destinations.html">Destinations</a></li>
+        <li><a href="booking.html">Book Now</a></li>
+        <li><a href="transport.html" class="active">Flights & Trains</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-buttons">
+        <a href="login.html" class="btn-outline">Login</a>
+        <a href="signup.html" class="btn-primary">Sign Up</a>
+      </div>
+      <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+    </div>
+  </nav>
+
+  <section class="transport-hero">
+    <h1><i class="fas fa-plane-departure"></i> Flights & Trains</h1>
+    <p>Search available flights and trains to your destination with real-time schedules</p>
+    <div class="tab-bar">
+      <button class="tab-btn active" id="flightTab" onclick="switchMode('flight')"><i class="fas fa-plane"></i> Flights</button>
+      <button class="tab-btn" id="trainTab" onclick="switchMode('train')"><i class="fas fa-train"></i> Trains</button>
+    </div>
+  </section>
+
+  <!-- FLIGHT SEARCH -->
+  <section class="search-section" id="flightSearch">
+    <div class="search-box">
+      <h2><i class="fas fa-plane"></i> Search Flights</h2>
+      <div class="trip-type">
+        <label class="trip-radio"><input type="radio" name="tripType" value="one" checked onchange="toggleReturn()"/> One Way</label>
+        <label class="trip-radio"><input type="radio" name="tripType" value="round" onchange="toggleReturn()"/> Round Trip</label>
+      </div>
+      <div class="search-grid">
+        <div class="search-field">
+          <label><i class="fas fa-plane-departure"></i> From (City / Airport)</label>
+          <input type="text" id="flightFrom" placeholder="e.g. Chennai, Delhi, Mumbai" list="cityList"/>
+        </div>
+        <div class="search-field">
+          <label><i class="fas fa-plane-arrival"></i> To (Destination)</label>
+          <input type="text" id="flightTo" placeholder="e.g. Manali, Ooty, Gulmarg" list="destList"/>
+        </div>
+        <div class="search-field">
+          <label><i class="fas fa-calendar"></i> Departure Date</label>
+          <input type="date" id="flightDate"/>
+        </div>
+        <div class="search-field">
+          <label>&nbsp;</label>
+          <button class="search-btn" onclick="searchFlights()"><i class="fas fa-search"></i> Search</button>
+        </div>
+      </div>
+      <div id="returnRow" style="display:none;margin-top:14px">
+        <div class="search-field" style="max-width:220px">
+          <label><i class="fas fa-calendar-check"></i> Return Date</label>
+          <input type="date" id="returnDate"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAIN SEARCH -->
+  <section class="search-section" id="trainSearch" style="display:none">
+    <div class="search-box">
+      <h2><i class="fas fa-train"></i> Search Trains</h2>
+      <div class="search-grid">
+        <div class="search-field">
+          <label><i class="fas fa-map-marker-alt"></i> From Station</label>
+          <input type="text" id="trainFrom" placeholder="e.g. Chennai Central, Delhi" list="stationList"/>
+        </div>
+        <div class="search-field">
+          <label><i class="fas fa-map-pin"></i> To Station</label>
+          <input type="text" id="trainTo" placeholder="e.g. Coimbatore, Manali" list="stationList"/>
+        </div>
+        <div class="search-field">
+          <label><i class="fas fa-calendar"></i> Journey Date</label>
+          <input type="date" id="trainDate"/>
+        </div>
+        <div class="search-field">
+          <label>&nbsp;</label>
+          <button class="search-btn" onclick="searchTrains()"><i class="fas fa-search"></i> Search</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <datalist id="cityList">
+    <option value="Chennai">
+    <option value="Delhi">
+    <option value="Mumbai">
+    <option value="Bangalore">
+    <option value="Hyderabad">
+    <option value="Kolkata">
+    <option value="Pune">
+    <option value="Ahmedabad">
+    <option value="Coimbatore">
+    <option value="Madurai">
+    <option value="Kochi">
+    <option value="Thiruvananthapuram">
+    <option value="Jammu">
+    <option value="Srinagar">
+    <option value="Chandigarh">
+  </datalist>
+  <datalist id="destList">
+    <option value="Ooty">
+    <option value="Kodaikanal">
+    <option value="Munnar">
+    <option value="Alleppey">
+    <option value="Rameswaram">
+    <option value="Kanyakumari">
+    <option value="Manali">
+    <option value="Shimla">
+    <option value="Gulmarg">
+    <option value="Vaishno Devi">
+    <option value="Spiti Valley">
+    <option value="Dharamshala">
+  </datalist>
+  <datalist id="stationList">
+    <option value="Chennai Central">
+    <option value="Chennai Egmore">
+    <option value="Delhi">
+    <option value="Mumbai CST">
+    <option value="Bangalore City">
+    <option value="Coimbatore">
+    <option value="Madurai">
+    <option value="Kochi">
+    <option value="Thiruvananthapuram Central">
+    <option value="Jammu Tawi">
+    <option value="Chandigarh">
+    <option value="Pathankot">
+    <option value="Kalka">
+  </datalist>
+
+  <!-- Loading -->
+  <div class="loading-spinner" id="loadingSpinner">
+    <div class="spinner"></div>
+    <p style="color:var(--gray);font-size:0.9rem">Searching available options...</p>
+  </div>
+
+  <!-- Results -->
+  <div class="results-section" id="resultsSection" style="display:none">
+    <div class="results-header">
+      <h3 id="resultsTitle">Results</h3>
+      <span id="resultsCount"></span>
+    </div>
+    <div class="sort-bar" style="margin-bottom:20px">
+      <button class="sort-btn active" onclick="sortResults('price',this)">Cheapest</button>
+      <button class="sort-btn" onclick="sortResults('duration',this)">Fastest</button>
+      <button class="sort-btn" onclick="sortResults('depart',this)">Earliest</button>
+    </div>
+    <div id="resultsList"></div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom">
+      <p>� 2026 TRAVEL X Smart Tourism System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/chatbot.js"></script>
+
+  <script>
+  // Set default date to today
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('flightDate').value = today;
+  document.getElementById('trainDate').value = today;
+
+  let currentMode = 'flight';
+  let allResults = [];
+
+  function switchMode(mode) {
+    currentMode = mode;
+    document.getElementById('flightSearch').style.display = mode === 'flight' ? 'block' : 'none';
+    document.getElementById('trainSearch').style.display = mode === 'train' ? 'block' : 'none';
+    document.getElementById('flightTab').classList.toggle('active', mode === 'flight');
+    document.getElementById('trainTab').classList.toggle('active', mode === 'train');
+    document.getElementById('resultsSection').style.display = 'none';
+  }
+
+  function toggleReturn() {
+    const isRound = document.querySelector('input[name="tripType"]:checked').value === 'round';
+    document.getElementById('returnRow').style.display = isRound ? 'block' : 'none';
+  }
+
+  // ===== FLIGHT DATA =====
+  const flightDB = [
+    { airline:'IndiGo', code:'6E-201', logo:'✈️', color:'#1e3a8a', from:'Chennai', to:'Coimbatore', dep:'06:00', arr:'07:10', dur:'1h 10m', stops:'Non-stop', price:2499, tags:['Meal','USB Charging'] },
+    { airline:'Air India', code:'AI-543', logo:'🛫', color:'#dc2626', from:'Chennai', to:'Coimbatore', dep:'08:30', arr:'09:45', dur:'1h 15m', stops:'Non-stop', price:3200, tags:['Meal','Extra Legroom'] },
+    { airline:'SpiceJet', code:'SG-112', logo:'🌶️', color:'#ea580c', from:'Chennai', to:'Coimbatore', dep:'11:00', arr:'12:15', dur:'1h 15m', stops:'Non-stop', price:1899, tags:['Budget'] },
+    { airline:'IndiGo', code:'6E-405', logo:'✈️', color:'#1e3a8a', from:'Chennai', to:'Madurai', dep:'07:15', arr:'08:20', dur:'1h 05m', stops:'Non-stop', price:2199, tags:['Meal'] },
+    { airline:'Air India', code:'AI-671', logo:'🛫', color:'#dc2626', from:'Chennai', to:'Madurai', dep:'13:00', arr:'14:10', dur:'1h 10m', stops:'Non-stop', price:2800, tags:['Meal','Priority Boarding'] },
+    { airline:'IndiGo', code:'6E-789', logo:'✈️', color:'#1e3a8a', from:'Chennai', to:'Kochi', dep:'09:00', arr:'10:20', dur:'1h 20m', stops:'Non-stop', price:2699, tags:['Meal'] },
+    { airline:'Vistara', code:'UK-234', logo:'💜', color:'#7c3aed', from:'Chennai', to:'Kochi', dep:'15:30', arr:'16:55', dur:'1h 25m', stops:'Non-stop', price:3800, tags:['Meal','Premium Economy'] },
+    { airline:'IndiGo', code:'6E-901', logo:'✈️', color:'#1e3a8a', from:'Delhi', to:'Chandigarh', dep:'06:30', arr:'07:40', dur:'1h 10m', stops:'Non-stop', price:2999, tags:['Meal'] },
+    { airline:'Air India', code:'AI-102', logo:'🛫', color:'#dc2626', from:'Delhi', to:'Chandigarh', dep:'10:00', arr:'11:15', dur:'1h 15m', stops:'Non-stop', price:3500, tags:['Meal','Lounge Access'] },
+    { airline:'SpiceJet', code:'SG-445', logo:'🌶️', color:'#ea580c', from:'Delhi', to:'Chandigarh', dep:'14:00', arr:'15:10', dur:'1h 10m', stops:'Non-stop', price:1999, tags:['Budget'] },
+    { airline:'IndiGo', code:'6E-567', logo:'✈️', color:'#1e3a8a', from:'Delhi', to:'Jammu', dep:'07:00', arr:'08:30', dur:'1h 30m', stops:'Non-stop', price:3299, tags:['Meal'] },
+    { airline:'Air India', code:'AI-445', logo:'🛫', color:'#dc2626', from:'Delhi', to:'Jammu', dep:'12:00', arr:'13:35', dur:'1h 35m', stops:'Non-stop', price:4200, tags:['Meal','Priority'] },
+    { airline:'IndiGo', code:'6E-321', logo:'✈️', color:'#1e3a8a', from:'Delhi', to:'Srinagar', dep:'08:00', arr:'09:45', dur:'1h 45m', stops:'Non-stop', price:4500, tags:['Meal'] },
+    { airline:'Vistara', code:'UK-890', logo:'💜', color:'#7c3aed', from:'Delhi', to:'Srinagar', dep:'11:30', arr:'13:20', dur:'1h 50m', stops:'Non-stop', price:5800, tags:['Meal','Business Class'] },
+    { airline:'IndiGo', code:'6E-654', logo:'✈️', color:'#1e3a8a', from:'Mumbai', to:'Kochi', dep:'07:30', arr:'09:20', dur:'1h 50m', stops:'Non-stop', price:3499, tags:['Meal'] },
+    { airline:'Air India', code:'AI-789', logo:'🛫', color:'#dc2626', from:'Mumbai', to:'Kochi', dep:'14:00', arr:'15:55', dur:'1h 55m', stops:'Non-stop', price:4100, tags:['Meal','Extra Legroom'] },
+    { airline:'IndiGo', code:'6E-432', logo:'✈️', color:'#1e3a8a', from:'Bangalore', to:'Coimbatore', dep:'06:45', arr:'07:45', dur:'1h 00m', stops:'Non-stop', price:1799, tags:['Budget'] },
+    { airline:'SpiceJet', code:'SG-678', logo:'🌶️', color:'#ea580c', from:'Bangalore', to:'Coimbatore', dep:'12:30', arr:'13:35', dur:'1h 05m', stops:'Non-stop', price:1599, tags:['Budget'] },
+    { airline:'IndiGo', code:'6E-111', logo:'✈️', color:'#1e3a8a', from:'Bangalore', to:'Kochi', dep:'08:00', arr:'09:10', dur:'1h 10m', stops:'Non-stop', price:2299, tags:['Meal'] },
+    { airline:'Vistara', code:'UK-456', logo:'💜', color:'#7c3aed', from:'Bangalore', to:'Kochi', dep:'17:00', arr:'18:15', dur:'1h 15m', stops:'Non-stop', price:3600, tags:['Meal','Premium'] },
+    { airline:'IndiGo', code:'6E-222', logo:'✈️', color:'#1e3a8a', from:'Hyderabad', to:'Kochi', dep:'09:30', arr:'11:00', dur:'1h 30m', stops:'Non-stop', price:2799, tags:['Meal'] },
+    { airline:'Air India', code:'AI-333', logo:'🛫', color:'#dc2626', from:'Kolkata', to:'Delhi', dep:'06:00', arr:'08:30', dur:'2h 30m', stops:'Non-stop', price:4800, tags:['Meal'] },
+    { airline:'IndiGo', code:'6E-999', logo:'✈️', color:'#1e3a8a', from:'Chennai', to:'Delhi', dep:'05:30', arr:'08:15', dur:'2h 45m', stops:'Non-stop', price:5200, tags:['Meal'] },
+    { airline:'SpiceJet', code:'SG-888', logo:'🌶️', color:'#ea580c', from:'Chennai', to:'Delhi', dep:'10:00', arr:'12:50', dur:'2h 50m', stops:'Non-stop', price:3900, tags:['Budget'] },
+    { airline:'IndiGo', code:'6E-777', logo:'✈️', color:'#1e3a8a', from:'Chennai', to:'Mumbai', dep:'07:00', arr:'09:10', dur:'2h 10m', stops:'Non-stop', price:3600, tags:['Meal'] },
+    { airline:'Vistara', code:'UK-111', logo:'💜', color:'#7c3aed', from:'Chennai', to:'Mumbai', dep:'16:00', arr:'18:15', dur:'2h 15m', stops:'Non-stop', price:5200, tags:['Meal','Business'] },
+  ];
+
+  // ===== TRAIN DATA =====
+  const trainDB = [
+    { name:'Nilgiri Express', num:'12671', from:'Chennai Egmore', to:'Coimbatore', dep:'21:45', arr:'05:30', dur:'7h 45m', days:'Daily', classes:[{cls:'1A',price:1850,avail:'Available'},{cls:'2A',price:1100,avail:'Available'},{cls:'3A',price:780,avail:'WL 12'},{cls:'SL',price:290,avail:'Available'}] },
+    { name:'Kovai Express', num:'12243', from:'Chennai Egmore', to:'Coimbatore', dep:'06:20', arr:'12:45', dur:'6h 25m', days:'Daily', classes:[{cls:'2A',price:1050,avail:'Available'},{cls:'3A',price:740,avail:'Available'},{cls:'SL',price:275,avail:'RAC 5'}] },
+    { name:'Cheran Express', num:'12673', from:'Chennai Egmore', to:'Coimbatore', dep:'22:00', arr:'06:15', dur:'8h 15m', days:'Daily', classes:[{cls:'1A',price:1900,avail:'Available'},{cls:'2A',price:1120,avail:'WL 3'},{cls:'3A',price:800,avail:'Available'},{cls:'SL',price:300,avail:'Available'}] },
+    { name:'Pandian Express', num:'12637', from:'Chennai Egmore', to:'Madurai', dep:'21:00', arr:'05:30', dur:'8h 30m', days:'Daily', classes:[{cls:'1A',price:2100,avail:'Available'},{cls:'2A',price:1250,avail:'Available'},{cls:'3A',price:890,avail:'Available'},{cls:'SL',price:330,avail:'WL 8'}] },
+    { name:'Vaigai Express', num:'12635', from:'Chennai Egmore', to:'Madurai', dep:'12:15', arr:'20:30', dur:'8h 15m', days:'Daily', classes:[{cls:'2A',price:1200,avail:'Available'},{cls:'3A',price:850,avail:'Available'},{cls:'SL',price:315,avail:'Available'}] },
+    { name:'Island Express', num:'16331', from:'Chennai Central', to:'Kochi', dep:'19:30', arr:'09:45', dur:'14h 15m', days:'Daily', classes:[{cls:'1A',price:2800,avail:'Available'},{cls:'2A',price:1650,avail:'Available'},{cls:'3A',price:1180,avail:'WL 5'},{cls:'SL',price:440,avail:'Available'}] },
+    { name:'Sabari Express', num:'16343', from:'Chennai Central', to:'Kochi', dep:'15:00', arr:'05:30', dur:'14h 30m', days:'Daily', classes:[{cls:'2A',price:1600,avail:'Available'},{cls:'3A',price:1140,avail:'Available'},{cls:'SL',price:425,avail:'Available'}] },
+    { name:'Rajdhani Express', num:'12431', from:'Delhi', to:'Chandigarh', dep:'17:00', arr:'20:30', dur:'3h 30m', days:'Daily', classes:[{cls:'1A',price:2200,avail:'Available'},{cls:'2A',price:1300,avail:'Available'},{cls:'3A',price:950,avail:'WL 2'}] },
+    { name:'Shatabdi Express', num:'12011', from:'Delhi', to:'Chandigarh', dep:'07:20', arr:'10:35', dur:'3h 15m', days:'Daily', classes:[{cls:'CC',price:890,avail:'Available'},{cls:'EC',price:1650,avail:'Available'}] },
+    { name:'Jammu Tawi Express', num:'12445', from:'Delhi', to:'Jammu Tawi', dep:'20:30', arr:'06:45', dur:'10h 15m', days:'Daily', classes:[{cls:'1A',price:2600,avail:'Available'},{cls:'2A',price:1550,avail:'Available'},{cls:'3A',price:1100,avail:'Available'},{cls:'SL',price:410,avail:'WL 15'}] },
+    { name:'Uttar Sampark Kranti', num:'12471', from:'Delhi', to:'Jammu Tawi', dep:'16:45', arr:'03:30', dur:'10h 45m', days:'Daily', classes:[{cls:'2A',price:1480,avail:'Available'},{cls:'3A',price:1050,avail:'Available'},{cls:'SL',price:390,avail:'Available'}] },
+    { name:'Swaraj Express', num:'12471', from:'Delhi', to:'Pathankot', dep:'19:00', arr:'05:30', dur:'10h 30m', days:'Daily', classes:[{cls:'2A',price:1400,avail:'Available'},{cls:'3A',price:990,avail:'WL 6'},{cls:'SL',price:370,avail:'Available'}] },
+    { name:'Kalka Mail', num:'12311', from:'Delhi', to:'Kalka', dep:'22:00', arr:'05:30', dur:'7h 30m', days:'Daily', classes:[{cls:'1A',price:2100,avail:'Available'},{cls:'2A',price:1250,avail:'Available'},{cls:'3A',price:890,avail:'Available'},{cls:'SL',price:330,avail:'Available'}] },
+    { name:'Himalayan Queen', num:'52455', from:'Kalka', to:'Shimla', dep:'06:00', arr:'10:30', dur:'4h 30m', days:'Daily', classes:[{cls:'FC',price:450,avail:'Available'},{cls:'2S',price:180,avail:'Available'}] },
+    { name:'Mangala Express', num:'12617', from:'Delhi', to:'Kochi', dep:'07:10', arr:'11:30', dur:'28h 20m', days:'Daily', classes:[{cls:'1A',price:4200,avail:'Available'},{cls:'2A',price:2500,avail:'Available'},{cls:'3A',price:1780,avail:'WL 10'},{cls:'SL',price:660,avail:'Available'}] },
+    { name:'Coimbatore Express', num:'12675', from:'Bangalore', to:'Coimbatore', dep:'23:00', arr:'05:30', dur:'6h 30m', days:'Daily', classes:[{cls:'2A',price:980,avail:'Available'},{cls:'3A',price:700,avail:'Available'},{cls:'SL',price:260,avail:'Available'}] },
+    { name:'Kochuveli Express', num:'16381', from:'Coimbatore', to:'Kochi', dep:'08:30', arr:'13:45', dur:'5h 15m', days:'Daily', classes:[{cls:'2A',price:850,avail:'Available'},{cls:'3A',price:600,avail:'Available'},{cls:'SL',price:225,avail:'Available'}] },
+  ];
+
+  function searchFlights() {
+    const from = document.getElementById('flightFrom').value.trim();
+    const to = document.getElementById('flightTo').value.trim();
+    const date = document.getElementById('flightDate').value;
+    if (!from || !to) { alert('Please enter both departure and destination cities.'); return; }
+
+    showLoading();
+    setTimeout(() => {
+      // Match flights — flexible matching
+      let results = flightDB.filter(f =>
+        f.from.toLowerCase().includes(from.toLowerCase()) ||
+        from.toLowerCase().includes(f.from.toLowerCase())
+      );
+      if (results.length === 0) results = flightDB.slice(0, 8); // show sample if no match
+
+      allResults = results.map(f => ({...f, type:'flight', dateStr: date}));
+      showResults('flight', from, to, date);
+    }, 1200);
+  }
+
+  function searchTrains() {
+    const from = document.getElementById('trainFrom').value.trim();
+    const to = document.getElementById('trainTo').value.trim();
+    const date = document.getElementById('trainDate').value;
+    if (!from || !to) { alert('Please enter both departure and destination stations.'); return; }
+
+    showLoading();
+    setTimeout(() => {
+      let results = trainDB.filter(t =>
+        t.from.toLowerCase().includes(from.toLowerCase()) ||
+        from.toLowerCase().includes(t.from.toLowerCase())
+      );
+      if (results.length === 0) results = trainDB.slice(0, 8);
+
+      allResults = results.map(t => ({...t, type:'train', dateStr: date}));
+      showResults('train', from, to, date);
+    }, 1200);
+  }
+
+  function showLoading() {
+    document.getElementById('loadingSpinner').style.display = 'block';
+    document.getElementById('resultsSection').style.display = 'none';
+  }
+
+  function showResults(type, from, to, date) {
+    document.getElementById('loadingSpinner').style.display = 'none';
+    document.getElementById('resultsSection').style.display = 'block';
+    const d = new Date(date);
+    const dateFormatted = d.toLocaleDateString('en-IN', {weekday:'short', day:'numeric', month:'short', year:'numeric'});
+    document.getElementById('resultsTitle').textContent = (type === 'flight' ? '✈️ Flights' : '🚂 Trains') + ' from ' + from + ' · ' + dateFormatted;
+    document.getElementById('resultsCount').textContent = allResults.length + ' results found';
+    renderResults(allResults);
+  }
+
+  function renderResults(results) {
+    const list = document.getElementById('resultsList');
+    if (results.length === 0) {
+      list.innerHTML = '<div class="no-results"><i class="fas fa-search"></i><p>No results found. Try different cities or dates.</p></div>';
+      return;
+    }
+    list.innerHTML = results.map((r, i) => {
+      if (r.type === 'flight') return renderFlight(r, i);
+      return renderTrain(r, i);
+    }).join('');
+  }
+
+  function renderFlight(f, i) {
+    const minPrice = '₹' + f.price.toLocaleString('en-IN');
+    return '<div class="result-card">' +
+      '<div class="result-main">' +
+        '<div class="airline-logo" style="background:' + f.color + '20;color:' + f.color + '">' + f.logo + '</div>' +
+        '<div class="flight-info">' +
+          '<div class="flight-name">' + f.airline + '</div>' +
+          '<div class="flight-num">' + f.code + '</div>' +
+          '<div class="flight-tags">' + f.tags.map(t => '<span class="ftag' + (t==='Budget'?' green':'') + '">' + t + '</span>').join('') + '</div>' +
+        '</div>' +
+        '<div class="flight-times">' +
+          '<div class="time-block"><div class="time-big">' + f.dep + '</div><div class="time-city">' + f.from + '</div></div>' +
+          '<div class="flight-line"><div class="flight-duration">' + f.dur + '</div><div class="flight-bar"></div><div class="flight-stops' + (f.stops !== 'Non-stop' ? ' stops' : '') + '">' + f.stops + '</div></div>' +
+          '<div class="time-block"><div class="time-big">' + f.arr + '</div><div class="time-city">' + f.to + '</div></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="result-price">' +
+        '<div class="price-amount">' + minPrice + '</div>' +
+        '<div class="price-per">per person</div>' +
+        '<button class="book-now-btn" onclick="bookTransport(\'' + f.airline + '\',\'' + f.code + '\',\'' + minPrice + '\')">Book Now</button>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function renderTrain(t, i) {
+    const minPrice = '₹' + Math.min(...t.classes.map(c => c.price)).toLocaleString('en-IN');
+    const classHtml = t.classes.map(c => {
+      const cls = c.cls.toLowerCase().replace(' ','');
+      const avail = c.avail.startsWith('WL') ? 'avail-wait' : c.avail.startsWith('RAC') ? 'avail-low' : 'avail-good';
+      return '<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)">' +
+        '<span class="train-class-badge cls-' + (cls==='1a'?'1a':cls==='2a'?'2a':cls==='3a'?'3a':'sl') + '">' + c.cls + '</span>' +
+        '<span style="font-weight:700;font-size:0.88rem">₹' + c.price.toLocaleString('en-IN') + '</span>' +
+        '<span class="avail-badge ' + avail + '">' + c.avail + '</span>' +
+        '<button onclick="bookTransport(\'' + t.name + '\',\'' + t.num + '\',\'₹' + c.price + '\')" style="margin-left:auto;background:#1e3a8a;color:#fff;border:none;padding:4px 12px;border-radius:6px;font-size:0.75rem;font-weight:700;cursor:pointer">Book</button>' +
+      '</div>';
+    }).join('');
+
+    return '<div class="result-card" style="display:block">' +
+      '<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:14px">' +
+        '<div style="display:flex;align-items:center;gap:16px">' +
+          '<div class="airline-logo" style="background:#dcfce7;color:#16a34a;font-size:1.5rem">🚂</div>' +
+          '<div>' +
+            '<div class="flight-name">' + t.name + '</div>' +
+            '<div class="flight-num">#' + t.num + ' · ' + t.days + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="flight-times">' +
+          '<div class="time-block"><div class="time-big">' + t.dep + '</div><div class="time-city">' + t.from + '</div></div>' +
+          '<div class="flight-line"><div class="flight-duration">' + t.dur + '</div><div class="flight-bar"></div><div class="flight-stops">Direct</div></div>' +
+          '<div class="time-block"><div class="time-big">' + t.arr + '</div><div class="time-city">' + t.to + '</div></div>' +
+        '</div>' +
+        '<div style="text-align:right"><div style="font-size:0.75rem;color:var(--gray)">Starting from</div><div class="price-amount">' + minPrice + '</div></div>' +
+      '</div>' +
+      '<div style="border-top:1px solid var(--border);padding-top:12px">' +
+        '<div style="font-size:0.78rem;font-weight:700;color:var(--gray);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px">Available Classes</div>' +
+        classHtml +
+      '</div>' +
+    '</div>';
+  }
+
+  function bookTransport(name, num, price) {
+    alert('Booking ' + name + ' (' + num + ') for ' + price + '.\n\nRedirecting to payment...');
+    window.location.href = 'payment.html';
+  }
+
+  function sortResults(by, btn) {
+    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const sorted = [...allResults];
+    if (by === 'price') sorted.sort((a,b) => {
+      const pa = a.type==='flight' ? a.price : Math.min(...a.classes.map(c=>c.price));
+      const pb = b.type==='flight' ? b.price : Math.min(...b.classes.map(c=>c.price));
+      return pa - pb;
+    });
+    else if (by === 'duration') sorted.sort((a,b) => a.dur.localeCompare(b.dur));
+    else if (by === 'depart') sorted.sort((a,b) => a.dep.localeCompare(b.dep));
+    renderResults(sorted);
+  }
+  </script>
+</body>
+</html>
